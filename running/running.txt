@@ -1,0 +1,21 @@
+python run.py --source 'adult.csv' --output 'adult_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
+
+python run_2.py --source 'adult.csv' --output 'adult_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
+
+python run_3.py --source 'adult.csv' --output 'adult_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
+
+
+
+python run.py --source 'australian.csv' --output 'australian_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
+
+python run_2.py --source 'australian.csv' --output 'australian_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
+
+python run_3.py --source 'australian.csv' --output 'australian_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
+
+
+
+python run.py --source 'insurance.csv' --output 'insurance_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
+
+python run_2.py --source 'insurance.csv' --output 'insurance_generation_2.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
+
+python run_3.py --source 'insurance.csv' --output 'insurance_generation_3.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
