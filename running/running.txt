@@ -1,21 +1,28 @@
-python run.py --source 'adult.csv' --output 'adult_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
+python run.py --source 'adult.csv' --output 'adult_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'fnlwgt' 'education-num' 'capital-gain' 'capital-loss' 'hours-per-week' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'native-country' 'class-label'
 
-python run_2.py --source 'adult.csv' --output 'adult_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
+python run_2.py --source 'adult.csv' --output 'adult_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'fnlwgt' 'education-num' 'capital-gain' 'capital-loss' 'hours-per-week' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'native-country' 'class-label'
 
-python run_3.py --source 'adult.csv' --output 'adult_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'edu-num' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'income'
-
-
-
-python run.py --source 'australian.csv' --output 'australian_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
-
-python run_2.py --source 'australian.csv' --output 'australian_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
-
-python run_3.py --source 'australian.csv' --output 'australian_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'Two' 'Three' 'Seven' 'Ten' 'Thirteen' 'FOurteen' --categorical_columns 'One' 'Four' 'Five' 'Six' 'Eight' 'Nine' 'Eleven' 'Twelve' 'Fifteen'
+python run_3.py --source 'adult.csv' --output 'adult_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'fnlwgt' 'education-num' 'capital-gain' 'capital-loss' 'hours-per-week' --categorical_columns 'workclass' 'education' 'marital-status' 'occupation' 'relationship' 'race' 'sex' 'native-country' 'class-label'
 
 
+python run.py --source 'bank-marketing.csv' --output 'bank-marketing_generation.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'balance' 'day' 'duration' 'campaign' 'pdays' 'previous' --categorical_columns 'job' 'marital' 'education' 'default' 'housing' 'loan' 'contact' 'month' 'poutcome' 'class-label'
 
-python run.py --source 'insurance.csv' --output 'insurance_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
+python run_2.py --source 'bank-marketing.csv' --output 'bank-marketing_generation_2.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'balance' 'day' 'duration' 'campaign' 'pdays' 'previous' --categorical_columns 'job' 'marital' 'education' 'default' 'housing' 'loan' 'contact' 'month' 'poutcome' 'class-label'
 
-python run_2.py --source 'insurance.csv' --output 'insurance_generation_2.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
+python run_3.py --source 'bank-marketing.csv' --output 'bank-marketing_generation_3.csv' --amount 1.0 --device 'cuda:0' --continuous_columns 'age' 'balance' 'day' 'duration' 'campaign' 'pdays' 'previous' --categorical_columns 'job' 'marital' 'education' 'default' 'housing' 'loan' 'contact' 'month' 'poutcome' 'class-label'
 
-python run_3.py --source 'insurance.csv' --output 'insurance_generation_3.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'HumanAge' 'AnnualPremium' 'PolicySalesChannel' 'Vintage'  --categorical_columns 'Gender' 'DrivingLicense' 'RegionCode' 'PreviouslyInsured' 'VehicleAge' 'VehicleDamage' 'Response'
+
+
+python run.py --source 'credit-card-clients.csv' --output 'credit-card-clients_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'LIMIT_BAL' 'AGE' 'BILL_AMT1' 'BILL_AMT2' 'BILL_AMT3' 'BILL_AMT4' 'BILL_AMT5' 'BILL_AMT6' 'PAY_AMT1' 'PAY_AMT2' 'PAY_AMT3' 'PAY_AMT4' 'PAY_AMT5' 'PAY_AMT6' --categorical_columns 'SEX' 'EDUCATION' 'MARITAL' 'PAY_0' 'PAY_2' 'PAY_3' 'PAY_4' 'PAY_5' 'PAY_6' 'class-label'
+
+python run_2.py --source 'credit-card-clients.csv' --output 'credit-card-clients_generation_2.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'LIMIT_BAL' 'AGE' 'BILL_AMT1' 'BILL_AMT2' 'BILL_AMT3' 'BILL_AMT4' 'BILL_AMT5' 'BILL_AMT6' 'PAY_AMT1' 'PAY_AMT2' 'PAY_AMT3' 'PAY_AMT4' 'PAY_AMT5' 'PAY_AMT6' --categorical_columns 'SEX' 'EDUCATION' 'MARITAL' 'PAY_0' 'PAY_2' 'PAY_3' 'PAY_4' 'PAY_5' 'PAY_6' 'class-label'
+
+python run_3.py --source 'credit-card-clients.csv' --output 'credit-card-clients_generation_3.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'LIMIT_BAL' 'AGE' 'BILL_AMT1' 'BILL_AMT2' 'BILL_AMT3' 'BILL_AMT4' 'BILL_AMT5' 'BILL_AMT6' 'PAY_AMT1' 'PAY_AMT2' 'PAY_AMT3' 'PAY_AMT4' 'PAY_AMT5' 'PAY_AMT6' --categorical_columns 'SEX' 'EDUCATION' 'MARITAL' 'PAY_0' 'PAY_2' 'PAY_3' 'PAY_4' 'PAY_5' 'PAY_6' 'class-label'
+
+
+
+python run.py --source 'german-credit-data.csv' --output 'german-credit-data_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'duration' 'credit-amount' 'installment-rate' 'residence-since' 'age' 'existing-credits' 'number-people-provide-maintenance-for' --categorical_columns 'checking-account' 'credit-history' 'purpose' 'savings-account' 'employment-since' 'other-debtors' 'property' 'other-installment' 'housing' 'job' 'telephone' 'foreign-worker' 'sex' 'marital-status' 'class-label'
+
+python run_2.py --source 'german-credit-data.csv' --output 'german-credit-data_generation_2.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'duration' 'credit-amount' 'installment-rate' 'residence-since' 'age' 'existing-credits' 'number-people-provide-maintenance-for' --categorical_columns 'checking-account' 'credit-history' 'purpose' 'savings-account' 'employment-since' 'other-debtors' 'property' 'other-installment' 'housing' 'job' 'telephone' 'foreign-worker' 'sex' 'marital-status' 'class-label'
+
+python run_3.py --source 'german-credit-data.csv' --output 'german-credit-data_generation_3.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'duration' 'credit-amount' 'installment-rate' 'residence-since' 'age' 'existing-credits' 'number-people-provide-maintenance-for' --categorical_columns 'checking-account' 'credit-history' 'purpose' 'savings-account' 'employment-since' 'other-debtors' 'property' 'other-installment' 'housing' 'job' 'telephone' 'foreign-worker' 'sex' 'marital-status' 'class-label'
