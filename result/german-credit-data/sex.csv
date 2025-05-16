@@ -1,0 +1,52 @@
+\begin{table}[H]
+\begin{center}
+\caption{german-credit-data\_sex}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{MLP}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+german-credit-data.csv &\textbf{\textcolor{red}{-0.0027}} &0.025 &0.1051 &0.0894 &0.08 &0.4724 &0.1009 \\
+german-credit-data\_generation.csv &-0.0898 &0.1125 &0.2479 &0.0697 &0.1354 &-0.2359 &0.0822 \\
+german-credit-data\_generation\_2.csv &0.0061 &0.0127 &\textbf{\textcolor{red}{0.0175}} &0.1246 &\textbf{\textcolor{red}{0.0048}} &\textbf{\textcolor{red}{0.029}} &0.1076 \\
+german-credit-data\_generation\_3\_sex.csv &-0.0315 &0.058 &0.1 &0.1799 &0.042 &-12.6733 &0.1213 \\
+german-credit-data\_generation\_4\_sex.csv &0.0981 &0.1069 &0.1883 &0.2779 &0.0814 &-0.732 &0.1737 \\
+german-credit-data\_generation\_5.csv &0.0115 &\textbf{\textcolor{red}{0.012}} &0.0209 &\textbf{\textcolor{red}{0.024}} &0.0088 &0.0452 &\textbf{\textcolor{red}{0.0201}} \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{KNN}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+german-credit-data.csv &\textbf{\textcolor{red}{0.0004}} &0.0161 &0.0312 &0.0766 &0.0151 &-0.1756 &0.0786 \\
+german-credit-data\_generation.csv &-0.0361 &0.0868 &0.168 &0.0978 &0.0813 &0.2761 &0.076 \\
+german-credit-data\_generation\_2.csv &-0.005 &0.07 &0.1847 &0.1184 &0.1146 &-0.2497 &0.1019 \\
+german-credit-data\_generation\_3\_sex.csv &0.0011 &0.1252 &0.1898 &0.0563 &0.0646 &0.2003 &0.0917 \\
+german-credit-data\_generation\_4\_sex.csv &0.0097 &0.1477 &0.2423 &0.3475 &0.0946 &-0.8549 &0.1833 \\
+german-credit-data\_generation\_5.csv &0.0102 &\textbf{\textcolor{red}{0.0122}} &\textbf{\textcolor{red}{0.0201}} &\textbf{\textcolor{red}{0.0252}} &\textbf{\textcolor{red}{0.0079}} &\textbf{\textcolor{red}{0.0238}} &\textbf{\textcolor{red}{0.0184}} \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{DT}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+german-credit-data.csv &0.0138 &0.0941 &0.2098 &0.067 &0.1157 &-0.356 &0.0667 \\
+german-credit-data\_generation.csv &-0.0589 &0.1159 &0.2018 &0.1314 &0.0859 &0.3615 &0.0842 \\
+german-credit-data\_generation\_2.csv &\textbf{\textcolor{red}{0.0001}} &0.0779 &0.3767 &0.2255 &0.2988 &0.3572 &0.1416 \\
+german-credit-data\_generation\_3\_sex.csv &-0.0155 &0.1085 &0.3534 &0.1508 &0.245 &0.316 &0.134 \\
+german-credit-data\_generation\_4\_sex.csv &0.2469 &0.3526 &0.5716 &0.4143 &0.2189 &-0.465 &0.1755 \\
+german-credit-data\_generation\_5.csv &0.02 &\textbf{\textcolor{red}{0.0238}} &\textbf{\textcolor{red}{0.042}} &\textbf{\textcolor{red}{0.0274}} &\textbf{\textcolor{red}{0.0182}} &\textbf{\textcolor{red}{-0.0514}} &\textbf{\textcolor{red}{0.0123}} \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{LR}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+german-credit-data.csv &0.0453 &0.0345 &0.1831 &0.0585 &0.1487 &-0.0999 &0.0857 \\
+german-credit-data\_generation.csv &-0.0449 &0.0545 &0.1646 &0.0856 &0.1101 &0.2823 &0.0767 \\
+german-credit-data\_generation\_2.csv &0.0827 &0.1508 &0.3203 &0.1372 &0.1695 &0.188 &0.1374 \\
+german-credit-data\_generation\_3\_sex.csv &0.0479 &0.1564 &0.3931 &0.1308 &0.2367 &1.4632 &0.1025 \\
+german-credit-data\_generation\_4\_sex.csv &0.4031 &0.4549 &0.7719 &0.3427 &0.3169 &1.5558 &0.1615 \\
+german-credit-data\_generation\_5.csv &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0235}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0298}} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}

@@ -6,3 +6,10 @@ sdv>=0.17.1
 seaborn>=0.11.2
 torch>=1.9.1
 torchvision>=0.10.1
+
+scikit-learn~=1.6.0
+scipy~=1.14.1
+abroca~=0.1.3
+utils~=1.0.2
+aif360~=0.6.1
+tabfairgan~=0.1.0

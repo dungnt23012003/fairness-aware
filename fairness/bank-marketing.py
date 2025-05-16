@@ -41,9 +41,8 @@ def load_adult(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['gender'] = [1 if v == 'Male' else 0 for v in df['gender']]
     df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    df['race'] = [1 if v == 'White' else 0 for v in df['race']]
+    df['class-label'] = [1 if v == 'yes' else 0 for v in df['class-label']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -78,6 +77,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
     # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
     for m in model_list:
         result_tmp = []
+        print(m)
         num_fold = 0
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
             num_fold += 1
@@ -92,8 +92,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             else:
                 model = LogisticRegression()
 
+
             model.fit(X_train_fold, y_train_fold)
-            print(m)
             y_predicts_fold = model.predict(X_test_fold)
             y_pred_probs_fold = model.predict_proba(X_test_fold)
 
@@ -140,7 +140,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = f'adult.{protected_attribute}.{m}.{f}.{num_fold}.png'
+            filename = ROOT / '..' / 'result' / 'bank-marketing' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
@@ -168,7 +168,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum_/num)
+                result_each_model.append(sum_ / num)
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -179,21 +179,18 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv', 'adult_generation_5.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv', 'adult_generation_5.csv']]
+    file_lists = [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_2.csv', 'bank-marketing_generation_3_age.csv', 'bank-marketing_generation_4_age.csv', 'bank-marketing_generation_5.csv']]
 
-    protected_attribute_list = ['gender', 'race', 'age']
-    majority_group_name_list = ['Male', 'White', 'From 25 to 65']
-    minority_group_name_list = ['Female', 'Non-White', 'Other']
+    protected_attribute_list = ['age']
+    majority_group_name_list = ['From 25 to 65']
+    minority_group_name_list = ['Other']
     class_label = 'class-label'
-    p_Group_list = [0, 0, 0]
+    p_Group_list = [0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
-        file = open(ROOT / '..' / 'result' / 'adult' / f'{protected_attribute}.csv', 'w')
+        file = open(ROOT / '..' / 'result' / 'bank-marketing' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
-        print(file_list)
         for f in file_list:
             X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
             test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
@@ -216,8 +213,9 @@ if __name__ == '__main__':
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{adult\\_" + protected_attribute + "}\n")
+        file.write("\\caption{bank-marketing\\_" + protected_attribute + "}\n")
         file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
+
         model_list = ['MLP', 'KNN', 'DT', 'LR']
         # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
         for model in range(np.shape(arr)[1]):

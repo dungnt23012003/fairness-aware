@@ -32,49 +32,8 @@ warnings.filterwarnings('ignore')
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
-def load_insurance(file, model):
-    print(file)
-    if file.__contains__('generation'):
-        df = pd.read_csv(ROOT / '..' / 'data' / 'Generations' / file, sep=",")
-    else:
-        df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
-    protected_attribute_list = ['Gender', 'HumanAge']
-    majority_group_name_list = ["Male", "From 25 to 65"]
-    minority_group_name_list = ["Female", "Other"]
-    class_label = 'Response'
-    filename = f'D:/PycharmProjects/DGGAN/AbrocaPlot/{model}//{model}.' + file + '.abroca.'
 
-    df['Gender'] = [1 if v == 'Male' else 0 for v in df['Gender']]
-    df['HumanAge'] = [1 if 25 <= v <= 65 else 0 for v in df['HumanAge']]
-
-    le = preprocessing.LabelEncoder()
-    for i in df.columns:
-        if df[i].dtypes == 'object':
-            df[i] = le.fit_transform(df[i])
-    # Splitting data into train and test
-    length = len(df.columns)
-    X = df.iloc[:, :length - 1]
-    y = df[class_label]
-    X_train = []
-    X_test =[]
-    y_train = []
-    y_test = []
-    skf = StratifiedKFold(n_splits=10)
-    for i, (train_index, test_index) in enumerate(skf.split(X, y)):
-        X_train.append(X.iloc[train_index])
-        X_test.append(X.iloc[test_index])
-        y_train.append(y.iloc[train_index])
-        y_test.append(y.iloc[test_index])
-    # Get index
-    feature = X.keys().tolist()
-    sa_index_list = []
-    for v in protected_attribute_list:
-        sa_index_list.append(feature.index(v))
-
-    p_Group = 0
-
-
-def load_insurance(file, protected_attribute, class_label):
+def load_adult(file, protected_attribute, class_label):
 
     print(file)
     if file.__contains__('generation'):
@@ -82,8 +41,7 @@ def load_insurance(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['Gender'] = [1 if v == 'Male' else 0 for v in df['Gender']]
-    df['HumanAge'] = [1 if 25 <= v <= 65 else 0 for v in df['HumanAge']]
+    df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -99,7 +57,7 @@ def load_insurance(file, protected_attribute, class_label):
     y_train = []
     y_test = []
 
-    skf = StratifiedKFold(n_splits=10)
+    skf = StratifiedKFold(n_splits=5)
     for i, (train_index, test_index) in enumerate(skf.split(X, y)):
         X_train.append(X.iloc[train_index])
         X_test.append(X.iloc[test_index])
@@ -112,14 +70,16 @@ def load_insurance(file, protected_attribute, class_label):
     return X_train, X_test, y_train, y_test, sa_index
 
 
-def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name):
+def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f):
     result = []
-
-    model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
+    model_list = ['MLP', 'KNN', 'DT', 'LR']
+    # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
     for m in model_list:
         result_tmp = []
         print(m)
+        num_fold = 0
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
+            num_fold += 1
             if m == 'MLP':
                 model = MLPClassifier()
             elif m == 'KNN':
@@ -179,14 +139,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = ""
+            filename = ROOT / '..' / 'result' / 'credit-card-clients' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
                                     majority_protected_attr_val=1, n_grid=10000,
                                     plot_slices=False, majority_group_name=majority_group_name,
                                     minority_group_name=minority_group_name,
-                                    file_name= filename + protected_attribute + ".png").__round__(4)
+                                    file_name=filename).__round__(4)
 
             # print("ABROCA:", Abroca)
             result_fold.append(Abroca)
@@ -199,14 +159,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             num = 0
             num_inf = 0
             for i in range(np.shape(arr)[0]):
-                if arr[i][j] == math.nan:
+                if math.isnan(arr[i][j]):
                     num_nan = num_nan + 1
-                elif arr[i][j] == math.inf:
+                elif math.isinf(arr[i][j]):
                     num_inf = num_inf + 1
                 else:
                     sum = sum + arr[i][j]
                     num = num + 1
-            if num > num_inf + num_nan:
+            if num != 0:
                 result_each_model.append(sum/num)
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
@@ -218,53 +178,51 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_list = ['insurance.csv', 'insurance_generation.csv', 'insurance_generation_2.csv'] # need to change
+    file_lists = [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_SEX.csv', 'credit-card-clients_generation_4_SEX.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_SEX.csv'],
+                  ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_AGE.csv', 'credit-card-clients_generation_4_AGE.csv', 'credit-card-clients_generation_5.csv']]
 
-    protected_attribute_list = ['Gender', 'HumanAge']
-    majority_group_name_list = ["Male", "From 25 to 65"]
-    minority_group_name_list = ["Female", "Other"]
-    class_label = 'Response'
-    p_Group_list = [0, 0] # need to change
+    protected_attribute_list = ['SEX', 'AGE']
+    majority_group_name_list = ['Male', 'From 25 to 65']
+    minority_group_name_list = ['Female', 'Other']
+    class_label = 'class-label'
+    p_Group_list = [2, 0]
 
-    for protected_attribute, majority_group_name, minority_group_name, p_Group in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list):
-        file = open(ROOT / '..' / 'result' / 'insurance' / f'{protected_attribute}.csv', 'w') # need to change
+    for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
+        file = open(ROOT / '..' / 'result' / 'credit-card-clients' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
         for f in file_list:
-            X_train, X_test, y_train, y_test, sa_index = load_insurance(f, protected_attribute, class_label)
-            test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name)
+            X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
+            test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
             result.append(test)
 
         arr = np.array(result)
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
-                min_position = 0
+                min_position = -1
                 for gen in range(np.shape(arr)[0]):
-                    if abs(arr[gen][model][score]) < abs(arr[min_position][model][score]):
+                    if not math.isnan(arr[gen][model][score]):
                         min_position = gen
-                arr_tmp[min_position][model][score] = 1
+                        break
+                if min_position != -1:
+                    for gen in range(np.shape(arr)[0]):
+                        if (abs(arr[gen][model][score]) <=
+                                abs(arr[min_position][model][score])):
+                            min_position = gen
+                    arr_tmp[min_position][model][score] = 1
 
-        file.write("\\begin table[H]\n")
+        file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{adult\\_" + protected_attribute + "}\n")
+        file.write("\\caption{credit-card-clients\\_" + protected_attribute + "}\n")
         file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
-        file.write("\\hline\n")
-        file.write("\\textbf{Dataset}&\\multicolumn{7}{|c|}{\\textbf{SP dataset}}\\\\\n")
-        file.write("\\hline\n")
-
-        for gen in range(np.shape(arr)[0]):
-            if arr_tmp[gen][0][0] == 0:
-                file.write(file_list[gen].replace("_", "\\_") + "&\\multicolumn{7}{|c|}{" + str(arr[gen][0][0].__round__(4)) + "}\\\\\n")
-            else:
-                file.write(file_list[gen].replace("_", "\\_") + "&\\multicolumn{7}{|c|}{\\textbf{\\textcolor{red}{" + str(arr[gen][0][0].__round__(4)) + "}}}\\\\\n")
-            file.write("\\hline\n")
-
-        model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
+        # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
+        model_list = ['MLP', 'KNN', 'DT', 'LR']
         for model in range(np.shape(arr)[1]):
-            file.write("\\textbf{}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
+            file.write("\\hline\n")
+            file.write("\\textbf{Method}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
             file.write("\\cline{2-8}\n")
-            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &Abroca \\\\\n")
+            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
                 file.write(file_list[gen].replace("_", "\\_") + " ")
@@ -274,8 +232,7 @@ if __name__ == '__main__':
                     else:
                         file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score].__round__(4)) + "}} ")
                 file.write("\\\\\n")
-                file.write("\\hline\n")
-
+        file.write("\\hline\n")
         file.write("\\end{tabular}\n")
         file.write("\\end{center}\n")
         file.write("\\end{table}\n")

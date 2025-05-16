@@ -33,7 +33,7 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
 
-def load_adult(file, protected_attribute, class_label):
+def load_credit_scoring(file, protected_attribute, class_label):
 
     print(file)
     if file.__contains__('generation'):
@@ -41,9 +41,7 @@ def load_adult(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['gender'] = [1 if v == 'Male' else 0 for v in df['gender']]
-    df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    df['race'] = [1 if v == 'White' else 0 for v in df['race']]
+    df['Age'] = [1 if 25 <= v <= 65 else 0 for v in df['Age']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -179,23 +177,22 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv', 'adult_generation_5.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv', 'adult_generation_5.csv']]
+    file_lists = [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Sex.csv', 'credit-scoring_generation_4_Sex.csv'],
+                  ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Age.csv', 'credit-scoring_generation_4_Age.csv']]
 
-    protected_attribute_list = ['gender', 'race', 'age']
-    majority_group_name_list = ['Male', 'White', 'From 25 to 65']
-    minority_group_name_list = ['Female', 'Non-White', 'Other']
+    protected_attribute_list = ['Sex', 'Age']
+    majority_group_name_list = ['Male', 'From 25 to 65']
+    minority_group_name_list = ['Female', 'Other']
     class_label = 'class-label'
-    p_Group_list = [0, 0, 0]
+    p_Group_list = [2, 0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
-        file = open(ROOT / '..' / 'result' / 'adult' / f'{protected_attribute}.csv', 'w')
+        file = open(ROOT / '..' / 'result' / 'credit-scoring' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
         print(file_list)
         for f in file_list:
-            X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
+            X_train, X_test, y_train, y_test, sa_index = load_credit_scoring(f, protected_attribute, class_label)
             test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
             result.append(test)
 
@@ -216,7 +213,7 @@ if __name__ == '__main__':
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{adult\\_" + protected_attribute + "}\n")
+        file.write("\\caption{credit-scoring\\_" + protected_attribute + "}\n")
         file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
         model_list = ['MLP', 'KNN', 'DT', 'LR']
         # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']

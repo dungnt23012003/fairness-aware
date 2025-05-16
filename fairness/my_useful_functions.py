@@ -14,19 +14,46 @@ from aif360.sklearn.metrics import statistical_parity_difference
 # saValue
 
 # Statistical Parity measure
-def statistical_parity_loss(data, labels, prot_attr, priv_group):
-    sum = 0
-    for att, priv in zip(prot_attr, priv_group):
-        sum = sum + statistical_parity_difference(labels, prot_attr=data[att], priv_group=priv)
-    return sum/len(prot_attr)
+
+
+def statistical_parity_loss(labels, prot_attr, priv_group):
+    protected_pos = 0.
+    protected_neg = 0.
+    non_protected_pos = 0.
+    non_protected_neg = 0.
+
+    for label, value in zip(labels, prot_attr):
+        if label == 1:
+            if value == priv_group:
+                protected_pos = protected_pos + 1
+            else:
+                non_protected_pos = non_protected_pos + 1
+        else:
+            if value == priv_group:
+                protected_neg = protected_neg + 1
+            else:
+                non_protected_neg = non_protected_neg + 1
+
+    if protected_pos + protected_neg != 0:
+        C_prot = protected_pos / (protected_pos + protected_neg)
+    else:
+        return math.inf
+
+    if non_protected_pos + non_protected_neg != 0:
+        C_non_prot = non_protected_pos / (non_protected_pos + non_protected_neg)
+    else:
+        return math.inf
+
+    loss = C_non_prot - C_prot
+
+    return loss
+
+
 def calculate_performance_statistical_parity_dataset(data, labels, predictions, saIndex, saValue):
-
     output = dict()
-    output["accuracy"] = accuracy_score(labels, predictions)
-    output["f1-score"] = f1_score(labels, predictions)
     output["fairness"] = statistical_parity_difference(labels, prot_attr=data[:, saIndex], priv_group=saValue)
-
     return output
+
 def calculate_performance_statistical_parity(data, labels, predictions, saIndex, saValue):
     protected_pos = 0.
     protected_neg = 0.
@@ -85,41 +112,51 @@ def calculate_performance_statistical_parity(data, labels, predictions, saIndex,
     if tp_protected + fn_protected != 0:
         tpr_protected = tp_protected / (tp_protected + fn_protected)
     else:
-        tpr_protected = 0
+        tpr_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         tnr_protected = tn_protected / (tn_protected + fp_protected)
     else:
-        tnr_protected = 0
+        tnr_protected = math.inf
 
     if tp_non_protected + fn_non_protected != 0:
         tpr_non_protected = tp_non_protected / (tp_non_protected + fn_non_protected)
     else:
-        tpr_non_protected = 0.
+        tpr_non_protected = math.inf
 
     if tn_non_protected + fp_non_protected != 0:
         tnr_non_protected = tn_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        tnr_non_protected = 0.
+        tnr_non_protected = math.inf
 
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
+    if protected_pos + protected_neg != 0:
+        C_prot = protected_pos / (protected_pos + protected_neg)
     else:
-        C_non_prot = 0.
+        C_prot = math.inf
+
+    if non_protected_pos + non_protected_neg != 0:
+        C_non_prot = non_protected_pos / (non_protected_pos + non_protected_neg)
+    else:
+        C_non_prot = math.inf
+
     stat_par = C_non_prot - C_prot
 
     output = dict()
 
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
+    if tp_protected + tp_non_protected + fn_protected + fn_non_protected != 0:
+        tp = (tp_protected + tp_non_protected) / (tp_protected + tp_non_protected + fn_protected + fn_non_protected)
+    else:
+        tp = math.inf
+
+    if tn_protected + tn_non_protected + fp_protected + fp_non_protected != 0:
+        tn = (tn_protected + tn_non_protected) / (tn_protected + tn_non_protected + fp_protected + fp_non_protected)
+    else:
+        tn = math.inf
+
+    output["balanced_accuracy"] = (tp + tn) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)
-    # output["fairness"] = abs(stat_par)
     output["fairness"] = stat_par
 
     # output["Positive_prot_pred"] = C_prot
@@ -189,38 +226,36 @@ def calculate_performance_equalized_odds(data, labels, predictions, saIndex, saV
     if tp_protected + fn_protected != 0:
         tpr_protected = tp_protected / (tp_protected + fn_protected)
     else:
-        tpr_protected = 0
+        tpr_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         tnr_protected = tn_protected / (tn_protected + fp_protected)
     else:
-        tnr_protected = 0
+        tnr_protected = math.inf
 
     if tp_non_protected + fn_non_protected != 0:
         tpr_non_protected = tp_non_protected / (tp_non_protected + fn_non_protected)
     else:
-        tpr_non_protected = 0.
+        tpr_non_protected = math.inf
 
     if tn_non_protected + fp_non_protected != 0:
         tnr_non_protected = tn_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        tnr_non_protected = 0.
-
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
-    else:
-        C_non_prot = 0.
-
-    stat_par = C_non_prot - C_prot
+        tnr_non_protected = math.inf
 
     output = dict()
 
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
+    if tp_protected + tp_non_protected + fn_protected + fn_non_protected != 0:
+        tp = (tp_protected + tp_non_protected) / (tp_protected + tp_non_protected + fn_protected + fn_non_protected)
+    else:
+        tp = math.inf
+
+    if tn_protected + tn_non_protected + fp_protected + fp_non_protected != 0:
+        tn = (tn_protected + tn_non_protected) / (tn_protected + tn_non_protected + fp_protected + fp_non_protected)
+    else:
+        tn = math.inf
+
+    output["balanced_accuracy"] = (tp + tn) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)
@@ -295,39 +330,37 @@ def calculate_performance_equal_opportunity(data, labels, predictions, saIndex, 
     if tp_protected + fn_protected != 0:
         tpr_protected = tp_protected / (tp_protected + fn_protected)
     else:
-        tpr_protected = 0
+        tpr_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         tnr_protected = tn_protected / (tn_protected + fp_protected)
     else:
-        tnr_protected = 0
+        tnr_protected = math.inf
 
     if tp_non_protected + fn_non_protected != 0:
         tpr_non_protected = tp_non_protected / (tp_non_protected + fn_non_protected)
     else:
-        tpr_non_protected = 0.
+        tpr_non_protected = math.inf
 
     if tn_non_protected + fp_non_protected != 0:
         tnr_non_protected = tn_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        tnr_non_protected = 0.
+        tnr_non_protected = math.inf
 
-
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
-    else:
-        C_non_prot = 0.
-
-    stat_par = C_non_prot - C_prot
 
     output = dict()
 
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
+    if tp_protected + tp_non_protected + fn_protected + fn_non_protected != 0:
+        tp = (tp_protected + tp_non_protected) / (tp_protected + tp_non_protected + fn_protected + fn_non_protected)
+    else:
+        tp = math.inf
+
+    if tn_protected + tn_non_protected + fp_protected + fp_non_protected != 0:
+        tn = (tn_protected + tn_non_protected) / (tn_protected + tn_non_protected + fp_protected + fp_non_protected)
+    else:
+        tn = math.inf
+
+    output["balanced_accuracy"] = (tp + tn) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)
@@ -402,48 +435,47 @@ def calculate_performance_predictive_parity(data, labels, predictions, saIndex, 
     if tp_protected + fn_protected != 0:
         tpr_protected = tp_protected / (tp_protected + fn_protected)
     else:
-        tpr_protected = 0
+        tpr_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         tnr_protected = tn_protected / (tn_protected + fp_protected)
     else:
-        tnr_protected = 0
+        tnr_protected = math.inf
 
     if tp_non_protected + fn_non_protected != 0:
         tpr_non_protected = tp_non_protected / (tp_non_protected + fn_non_protected)
     else:
-        tpr_non_protected = 0.
+        tpr_non_protected = math.inf
 
     if tn_non_protected + fp_non_protected != 0:
         tnr_non_protected = tn_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        tnr_non_protected = 0.
+        tnr_non_protected = math.inf
 
-    if (tp_non_protected + fp_non_protected != 0):
+    if tp_non_protected + fp_non_protected != 0:
         ppv_non_protected = tp_non_protected / (tp_non_protected + fp_non_protected)
     else:
-        ppv_non_protected = 0.0
+        ppv_non_protected = math.inf
 
-    if (tp_protected + fp_protected != 0):
+    if tp_protected + fp_protected != 0:
         ppv_protected = tp_protected / (tp_protected + fp_protected)
     else:
-        ppv_protected = 0.0
+        ppv_protected = math.inf
 
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
-    else:
-        C_non_prot = 0.
-
-    stat_par = C_non_prot - C_prot
 
     output = dict()
 
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
+    if tp_protected + tp_non_protected + fn_protected + fn_non_protected != 0:
+        tp = (tp_protected + tp_non_protected) / (tp_protected + tp_non_protected + fn_protected + fn_non_protected)
+    else:
+        tp = math.inf
+
+    if tn_protected + tn_non_protected + fp_protected + fp_non_protected != 0:
+        tn = (tn_protected + tn_non_protected) / (tn_protected + tn_non_protected + fp_protected + fp_non_protected)
+    else:
+        tn = math.inf
+
+    output["balanced_accuracy"] = (tp + tn) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)
@@ -518,49 +550,34 @@ def calculate_performance_predictive_equality(data, labels, predictions, saIndex
     if tp_protected + fn_protected != 0:
         tpr_protected = tp_protected / (tp_protected + fn_protected)
     else:
-        tpr_protected = 0
+        tpr_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         tnr_protected = tn_protected / (tn_protected + fp_protected)
     else:
-        tnr_protected = 0
+        tnr_protected = math.inf
 
     if tp_non_protected + fn_non_protected != 0:
         tpr_non_protected = tp_non_protected / (tp_non_protected + fn_non_protected)
     else:
-        tpr_non_protected = 0.
+        tpr_non_protected = math.inf
 
     if tn_non_protected + fp_non_protected != 0:
         tnr_non_protected = tn_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        tnr_non_protected = 0.
+        tnr_non_protected = math.inf
 
     if tn_protected + fp_protected != 0:
         fpr_protected = fp_protected / (tn_protected + fp_protected)
     else:
-        fpr_protected = 0
+        fpr_protected = math.inf
 
     if (tn_non_protected + fp_non_protected != 0):
         fpr_non_protected = fp_non_protected / (tn_non_protected + fp_non_protected)
     else:
-        fpr_non_protected = 0.
-
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
-    else:
-        C_non_prot = 0.
-
-    stat_par = C_non_prot - C_prot
+        fpr_non_protected = math.inf
 
     output = dict()
-
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)
@@ -652,30 +669,30 @@ def calculate_performance_treatment_equality(data, labels, predictions, saIndex,
     else:
         tnr_non_protected = 0.
 
-    if (fp_protected != 0):
+    if fp_protected != 0:
         fnpr_protected = fn_protected / fp_protected
     else:
         fnpr_protected = math.inf
-    if (fp_non_protected != 0):
+
+    if fp_non_protected != 0:
         fnpr_non_protected = fn_non_protected / fp_non_protected
     else:
         fnpr_non_protected = math.inf
 
-    C_prot = (protected_pos) / (protected_pos + protected_neg)
-    if (non_protected_pos + non_protected_neg != 0):
-        C_non_prot = (non_protected_pos) / (non_protected_pos + non_protected_neg)
-    else:
-        C_non_prot = 0.
-
-    stat_par = C_non_prot - C_prot
 
     output = dict()
 
-    # output["balanced_accuracy"] = balanced_accuracy_score(labels, predictions)
-    output["balanced_accuracy"] = ((tp_protected + tp_non_protected) / (
-                tp_protected + tp_non_protected + fn_protected + fn_non_protected) +
-                                   (tn_protected + tn_non_protected) / (
-                                               tn_protected + tn_non_protected + fp_protected + fp_non_protected)) * 0.5
+    if tp_protected + tp_non_protected + fn_protected + fn_non_protected != 0:
+        tp = (tp_protected + tp_non_protected) / (tp_protected + tp_non_protected + fn_protected + fn_non_protected)
+    else:
+        tp = math.inf
+
+    if tn_protected + tn_non_protected + fp_protected + fp_non_protected != 0:
+        tn = (tn_protected + tn_non_protected) / (tn_protected + tn_non_protected + fp_protected + fp_non_protected)
+    else:
+        tn = math.inf
+
+    output["balanced_accuracy"] = (tp + tn) * 0.5
 
     output["accuracy"] = accuracy_score(labels, predictions)
     output["f1-score"] = f1_score(labels, predictions)

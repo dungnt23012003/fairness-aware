@@ -1,0 +1,48 @@
+\begin{table}[H]
+\begin{center}
+\caption{credit-scoring\_Age}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{MLP}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-scoring.csv &0.0811 &\textbf{\textcolor{red}{0.0036}} &\textbf{\textcolor{red}{0.0309}} &0.0081 &\textbf{\textcolor{red}{0.0272}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0122}} \\
+credit-scoring\_generation.csv &0.0473 &0.0171 &0.2665 &\textbf{\textcolor{red}{0.0071}} &0.2494 &-0.6971 &0.0794 \\
+credit-scoring\_generation\_2.csv &0.0611 &0.0103 &0.1951 &0.019 &0.1848 &-0.0572 &0.031 \\
+credit-scoring\_generation\_3\_Age.csv &-0.0321 &0.0418 &0.1807 &0.0089 &0.139 &0.0083 &0.0945 \\
+credit-scoring\_generation\_4\_Age.csv &\textbf{\textcolor{red}{0.0097}} &0.0257 &0.3563 &0.0323 &0.3306 &-12.8067 &0.0802 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{KNN}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-scoring.csv &0.0817 &\textbf{\textcolor{red}{0.0068}} &\textbf{\textcolor{red}{0.0861}} &0.0155 &0.0793 &0.0548 &\textbf{\textcolor{red}{0.0267}} \\
+credit-scoring\_generation.csv &\textbf{\textcolor{red}{0.0086}} &0.0177 &0.1888 &0.0284 &0.1711 &-1.9196 &0.1033 \\
+credit-scoring\_generation\_2.csv &0.0381 &0.0192 &0.163 &0.0316 &0.1438 &-0.1391 &0.0693 \\
+credit-scoring\_generation\_3\_Age.csv &-0.0395 &0.0405 &0.1119 &\textbf{\textcolor{red}{0.0108}} &\textbf{\textcolor{red}{0.0713}} &\textbf{\textcolor{red}{-0.0312}} &0.2127 \\
+credit-scoring\_generation\_4\_Age.csv &-0.0115 &0.0174 &0.1098 &0.0364 &0.0923 &-1.9439 &0.1131 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{DT}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-scoring.csv &0.0792 &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0276}} &0.0081 &\textbf{\textcolor{red}{0.0275}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0138}} \\
+credit-scoring\_generation.csv &0.0396 &0.0256 &0.2074 &0.0107 &0.1819 &-1.3293 &0.0978 \\
+credit-scoring\_generation\_2.csv &0.0415 &0.032 &0.18 &0.0279 &0.148 &-1.5294 &0.0776 \\
+credit-scoring\_generation\_3\_Age.csv &\textbf{\textcolor{red}{-0.0262}} &0.0499 &0.3668 &\textbf{\textcolor{red}{0.0051}} &0.3169 &0.1966 &0.1825 \\
+credit-scoring\_generation\_4\_Age.csv &0.0567 &0.0547 &0.389 &0.0376 &0.3343 &-0.6271 &0.1566 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{LR}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-scoring.csv &0.0808 &\textbf{\textcolor{red}{0.005}} &\textbf{\textcolor{red}{0.0323}} &0.0081 &\textbf{\textcolor{red}{0.0272}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0135}} \\
+credit-scoring\_generation.csv &0.0497 &0.0128 &0.3444 &\textbf{\textcolor{red}{0.0051}} &0.3317 &0.0049 &0.0591 \\
+credit-scoring\_generation\_2.csv &0.0387 &0.0181 &0.2509 &0.0216 &0.2328 &-1.9062 &0.0377 \\
+credit-scoring\_generation\_3\_Age.csv &-0.0175 &0.0331 &0.328 &0.0139 &0.295 &-7.8333 &0.0925 \\
+credit-scoring\_generation\_4\_Age.csv &\textbf{\textcolor{red}{0.0085}} &0.0079 &0.1627 &0.0282 &0.1548 &-0.4914 &0.1022 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}

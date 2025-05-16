@@ -1,0 +1,56 @@
+\begin{table}[H]
+\begin{center}
+\caption{credit-card-clients\_SEX}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{MLP}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-card-clients.csv &0.0172 &0.0365 &0.0492 &\textbf{\textcolor{red}{0.0404}} &0.0126 &2.5861 &\textbf{\textcolor{red}{0.0136}} \\
+credit-card-clients\_generation.csv &\textbf{\textcolor{red}{-0.0003}} &\textbf{\textcolor{red}{0.0202}} &\textbf{\textcolor{red}{0.0328}} &0.1214 &\textbf{\textcolor{red}{0.0126}} &-1.6855 &0.0178 \\
+credit-card-clients\_generation\_2.csv &0.0068 &0.0452 &0.0664 &0.15 &0.0212 &-2.2643 &0.038 \\
+credit-card-clients\_generation\_3\_SEX.csv &0.0115 &0.0566 &0.0753 &0.1157 &0.0187 &-0.4064 &0.0437 \\
+credit-card-clients\_generation\_4\_SEX.csv &0.0122 &0.034 &0.0481 &0.0513 &0.0141 &\textbf{\textcolor{red}{-0.0107}} &0.0242 \\
+credit-card-clients\_generation\_5.csv &-0.0162 &0.028 &0.0439 &0.0652 &0.0159 &0.7507 &0.0228 \\
+credit-card-clients\_generation\_6\_SEX.csv &-0.1554 &0.1871 &0.2637 &0.5708 &0.0766 &2.6512 &0.1694 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{KNN}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-card-clients.csv &0.014 &0.0163 &0.0251 &0.0465 &0.0088 &-0.2803 &\textbf{\textcolor{red}{0.0101}} \\
+credit-card-clients\_generation.csv &0.0179 &0.0176 &0.0373 &0.0879 &0.0197 &-0.6131 &0.0145 \\
+credit-card-clients\_generation\_2.csv &0.0126 &0.0196 &0.0385 &0.1644 &0.0189 &-2.2491 &0.0273 \\
+credit-card-clients\_generation\_3\_SEX.csv &0.0094 &0.0272 &0.0332 &0.0683 &\textbf{\textcolor{red}{0.0059}} &1.7745 &0.0251 \\
+credit-card-clients\_generation\_4\_SEX.csv &\textbf{\textcolor{red}{-0.0001}} &0.0276 &0.053 &0.0522 &0.0255 &-0.3136 &0.0255 \\
+credit-card-clients\_generation\_5.csv &-0.0109 &\textbf{\textcolor{red}{0.0091}} &\textbf{\textcolor{red}{0.0205}} &\textbf{\textcolor{red}{0.0244}} &0.0114 &\textbf{\textcolor{red}{0.2514}} &0.0124 \\
+credit-card-clients\_generation\_6\_SEX.csv &-0.113 &0.233 &0.2973 &0.5096 &0.0643 &2.9227 &0.1494 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{DT}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-card-clients.csv &0.0371 &0.0447 &0.0737 &\textbf{\textcolor{red}{0.0326}} &0.029 &\textbf{\textcolor{red}{-0.0158}} &0.0162 \\
+credit-card-clients\_generation.csv &0.0563 &0.0583 &0.1044 &0.0876 &0.0461 &-0.1628 &\textbf{\textcolor{red}{0.0156}} \\
+credit-card-clients\_generation\_2.csv &0.1654 &0.1542 &0.3128 &0.1756 &0.1586 &-0.1465 &0.0237 \\
+credit-card-clients\_generation\_3\_SEX.csv &0.0328 &0.0668 &0.0971 &0.0649 &0.0303 &0.0876 &0.0271 \\
+credit-card-clients\_generation\_4\_SEX.csv &\textbf{\textcolor{red}{-0.0077}} &\textbf{\textcolor{red}{0.0261}} &0.0577 &0.0533 &0.0316 &-0.0728 &0.0271 \\
+credit-card-clients\_generation\_5.csv &-0.0216 &0.0439 &\textbf{\textcolor{red}{0.0551}} &0.0682 &\textbf{\textcolor{red}{0.0112}} &0.0983 &0.022 \\
+credit-card-clients\_generation\_6\_SEX.csv &-0.3502 &0.5635 &0.8125 &0.5229 &0.249 &-0.167 &0.1573 \\
+\hline
+\textbf{Method}&\multicolumn{7}{|c|}{\textbf{LR}} \\
+\cline{2-8}
+\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\hline
+credit-card-clients.csv &\textbf{\textcolor{red}{-0.0002}} &\textbf{\textcolor{red}{0.0005}} &\textbf{\textcolor{red}{0.0007}} &1.0 &\textbf{\textcolor{red}{0.0002}} &nan &\textbf{\textcolor{red}{0.0186}} \\
+credit-card-clients\_generation.csv &0.0182 &0.0492 &0.0771 &0.0898 &0.0279 &\textbf{\textcolor{red}{-0.4725}} &0.0233 \\
+credit-card-clients\_generation\_2.csv &0.0127 &0.0084 &0.0273 &0.1306 &0.0189 &-10.2579 &0.0527 \\
+credit-card-clients\_generation\_3\_SEX.csv &0.0007 &0.0451 &0.053 &0.282 &0.0079 &-11.924 &0.0547 \\
+credit-card-clients\_generation\_4\_SEX.csv &0.0031 &0.0181 &0.0336 &\textbf{\textcolor{red}{0.0541}} &0.0155 &-2.7466 &0.031 \\
+credit-card-clients\_generation\_5.csv &-0.014 &0.0287 &0.035 &0.0634 &0.0063 &-1.1771 &0.0223 \\
+credit-card-clients\_generation\_6\_SEX.csv &-0.1049 &0.1036 &0.1322 &0.7027 &0.0286 &7.6635 &0.1342 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
