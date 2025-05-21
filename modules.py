@@ -41,3 +41,21 @@ class Discriminator(torch.nn.Module):
 
     def forward(self, x):
         return self.disc(x)
+
+
+class FairLossFunc(torch.nn.Module):
+    def __init__(self, S_start_index, Y_start_index, underpriv_index, priv_index, undesire_index, desire_index):
+        super(FairLossFunc, self).__init__()
+        self._S_start_index = S_start_index
+        self._Y_start_index = Y_start_index
+        self._underpriv_index = underpriv_index
+        self._priv_index = priv_index
+        self._undesire_index = undesire_index
+        self._desire_index = desire_index
+
+    def forward(self, x, loss_scale):
+        G = x[:, self._S_start_index:self._S_start_index + 2]
+        I = x[:, self._Y_start_index:self._Y_start_index + 2]
+        d_sp = loss_scale * abs(torch.mean(G[:, self._underpriv_index] * I[:, self._desire_index]) / (x[:, self._S_start_index + self._underpriv_index].sum()) - torch.mean(G[:, self._priv_index] * I[:, self._desire_index]) / (x[:, self._S_start_index + self._priv_index].sum()))
+
+        return d_sp

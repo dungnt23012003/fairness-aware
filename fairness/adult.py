@@ -106,9 +106,11 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             result_fold.append(Statistical_parity_dataset)
 
             # print("Statistical parity:")
-            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)
             # print(Statistical_parity)
-            result_fold.append(Statistical_parity)
+            result_fold.append(Statistical_parity['accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['balanced_accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['fairness'].__round__(4))
 
             # print("Equal opportunity")
             Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
@@ -140,7 +142,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = f'adult.{protected_attribute}.{m}.{f}.{num_fold}.png'
+            filename = f'adult_{protected_attribute}_{m}_{f}_{num_fold}.png'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
@@ -179,9 +181,9 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv', 'adult_generation_5.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv', 'adult_generation_5.csv']]
+    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_7_gender.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_7_race.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_7_age.csv']]
 
     protected_attribute_list = ['gender', 'race', 'age']
     majority_group_name_list = ['Male', 'White', 'From 25 to 65']
@@ -216,15 +218,16 @@ if __name__ == '__main__':
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{adult\\_" + protected_attribute + "}\n")
-        file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
+        file.write("\\caption{Adult dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\begin{tabular}{c c c c c c c c c c}\n")
+        file.write("\\hline\n")
+        file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
         model_list = ['MLP', 'KNN', 'DT', 'LR']
         # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
         for model in range(np.shape(arr)[1]):
             file.write("\\hline\n")
-            file.write("\\textbf{Method}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
-            file.write("\\cline{2-8}\n")
-            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\\\\n")
+            file.write("\\textbf{}&\\multicolumn{9}{c}{\\textbf{" + model_list[model] + "}} \\\\\n")
+            file.write("\\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
                 file.write(file_list[gen].replace("_", "\\_") + " ")

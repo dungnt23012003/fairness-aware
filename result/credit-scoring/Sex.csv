@@ -1,47 +1,57 @@
 \begin{table}[H]
 \begin{center}
-\caption{credit-scoring\_Sex}
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\caption{Credit scoring dataset: performance of predictive models. Protected attribute: Sex}
+\begin{tabular}{c c c c c c c c c c}
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{MLP}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\textbf{Method}&\multicolumn{9}{c}{\textbf{Predictive model}} \\
 \hline
-credit-scoring.csv &0.0308 &\textbf{\textcolor{red}{0.0011}} &\textbf{\textcolor{red}{0.018}} &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0169}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.007}} \\
-credit-scoring\_generation.csv &\textbf{\textcolor{red}{0.006}} &0.01 &0.101 &0.0077 &0.0909 &-0.8931 &0.0665 \\
-credit-scoring\_generation\_2.csv &0.0146 &0.009 &0.1221 &0.0041 &0.113 &-0.1016 &0.0292 \\
-credit-scoring\_generation\_3\_Sex.csv &-0.0085 &0.0093 &0.1184 &0.018 &0.1091 &-0.262 &0.1278 \\
-credit-scoring\_generation\_4\_Sex.csv &-0.0102 &0.0068 &0.1054 &0.0261 &0.0986 &-0.1214 &0.089 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{KNN}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+credit-scoring.csv &0.9981 &0.9905 &0.031 &\textbf{\textcolor{red}{0.0008}} &\textbf{\textcolor{red}{0.0177}} &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0169}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0068}} \\
+credit-scoring\_generation.csv &0.9499 &0.7671 &\textbf{\textcolor{red}{0.0011}} &0.0082 &0.1136 &0.0086 &0.1054 &-1.5825 &0.07 \\
+credit-scoring\_generation\_2.csv &0.9618 &0.7896 &0.0179 &0.0074 &0.1137 &0.0039 &0.1063 &-0.1179 &0.0315 \\
+credit-scoring\_generation\_3\_Sex.csv &0.9134 &\textbf{\textcolor{red}{0.5769}} &-0.0086 &0.006 &0.0974 &0.0184 &0.0914 &-0.4301 &0.1414 \\
+credit-scoring\_generation\_4\_Sex.csv &0.9491 &0.5903 &-0.0078 &0.0036 &0.1454 &0.026 &0.1418 &-0.0377 &0.077 \\
+credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.7751}} &0.6707 &0.0647 &0.0361 &0.0919 &0.0512 &0.0558 &12.6116 &0.0484 \\
+credit-scoring\_generation\_6\_Sex.csv &0.9316 &0.6481 &0.0409 &0.0143 &0.1828 &0.0348 &0.1684 &0.1543 &0.0406 \\
+credit-scoring\_generation\_7\_Sex.csv &0.9303 &0.6506 &0.0547 &0.02 &0.2827 &0.0527 &0.2627 &0.1461 &0.0473 \\
 \hline
-credit-scoring.csv &0.0324 &0.0061 &0.0626 &\textbf{\textcolor{red}{0.0044}} &0.0566 &0.3963 &\textbf{\textcolor{red}{0.02}} \\
-credit-scoring\_generation.csv &0.0046 &0.0046 &0.1046 &0.0131 &0.1 &-2.8599 &0.0627 \\
-credit-scoring\_generation\_2.csv &0.0182 &0.0122 &0.0792 &0.0122 &0.067 &0.2936 &0.0676 \\
-credit-scoring\_generation\_3\_Sex.csv &\textbf{\textcolor{red}{0.0004}} &\textbf{\textcolor{red}{0.0032}} &\textbf{\textcolor{red}{0.0252}} &0.0189 &\textbf{\textcolor{red}{0.022}} &\textbf{\textcolor{red}{0.0397}} &0.0611 \\
-credit-scoring\_generation\_4\_Sex.csv &-0.0029 &0.0053 &0.0567 &0.0314 &0.0514 &0.1266 &0.036 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{DT}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+credit-scoring.csv &0.9809 &0.9108 &0.0324 &0.0061 &0.0626 &\textbf{\textcolor{red}{0.0044}} &0.0566 &0.3963 &\textbf{\textcolor{red}{0.02}} \\
+credit-scoring\_generation.csv &0.9425 &0.6226 &0.0046 &0.0046 &0.1046 &0.0131 &0.1 &-2.8599 &0.0627 \\
+credit-scoring\_generation\_2.csv &0.9125 &0.6245 &0.0182 &0.0122 &0.0792 &0.0122 &0.067 &0.2936 &0.0676 \\
+credit-scoring\_generation\_3\_Sex.csv &0.9237 &\textbf{\textcolor{red}{0.5098}} &\textbf{\textcolor{red}{0.0004}} &\textbf{\textcolor{red}{0.0032}} &\textbf{\textcolor{red}{0.0252}} &0.0189 &\textbf{\textcolor{red}{0.022}} &\textbf{\textcolor{red}{0.0397}} &0.0611 \\
+credit-scoring\_generation\_4\_Sex.csv &0.9431 &0.5302 &-0.0029 &0.0053 &0.0567 &0.0314 &0.0514 &0.1266 &0.036 \\
+credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8103}} &0.589 &0.0667 &0.0543 &0.0963 &0.0753 &0.042 &0.1817 &0.0453 \\
+credit-scoring\_generation\_6\_Sex.csv &0.9212 &0.614 &0.0384 &0.0158 &0.1866 &0.0385 &0.1708 &0.1076 &0.0731 \\
+credit-scoring\_generation\_7\_Sex.csv &0.9215 &0.6408 &0.059 &0.028 &0.2531 &0.056 &0.2251 &0.1286 &0.0835 \\
 \hline
-credit-scoring.csv &0.0303 &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0151}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0149}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0076}} \\
-credit-scoring\_generation.csv &\textbf{\textcolor{red}{-0.0073}} &0.0074 &0.1231 &0.0082 &0.1157 &-5.0639 &0.0571 \\
-credit-scoring\_generation\_2.csv &0.0134 &0.0081 &0.1445 &0.0071 &0.1364 &-0.0005 &0.0693 \\
-credit-scoring\_generation\_3\_Sex.csv &-0.0363 &0.0394 &0.1935 &0.0214 &0.1541 &-0.4841 &0.0776 \\
-credit-scoring\_generation\_4\_Sex.csv &-0.0357 &0.0342 &0.2106 &0.0276 &0.1764 &1.5054 &0.1012 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{LR}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+credit-scoring.csv &0.9983 &0.9899 &0.0303 &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0151}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0149}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0076}} \\
+credit-scoring\_generation.csv &0.9418 &0.7458 &\textbf{\textcolor{red}{-0.0077}} &0.0075 &0.159 &0.0078 &0.1515 &-5.0528 &0.0741 \\
+credit-scoring\_generation\_2.csv &0.9377 &0.7764 &0.0123 &0.0051 &0.1417 &0.0048 &0.1366 &-0.1239 &0.0682 \\
+credit-scoring\_generation\_3\_Sex.csv &0.8955 &\textbf{\textcolor{red}{0.6029}} &-0.0253 &0.0253 &0.1878 &0.0195 &0.1624 &-0.2803 &0.0777 \\
+credit-scoring\_generation\_4\_Sex.csv &0.9189 &0.6594 &-0.0389 &0.0372 &0.1842 &0.0264 &0.147 &0.6976 &0.0884 \\
+credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8712}} &0.7993 &0.0827 &0.0288 &0.0758 &0.0312 &0.047 &-0.0956 &0.0249 \\
+credit-scoring\_generation\_6\_Sex.csv &0.8817 &0.6456 &0.0653 &0.0395 &0.2237 &0.0336 &0.1842 &-0.0119 &0.0765 \\
+credit-scoring\_generation\_7\_Sex.csv &0.8818 &0.6438 &0.0857 &0.0572 &0.2477 &0.0564 &0.1905 &-0.4512 &0.0671 \\
 \hline
-credit-scoring.csv &0.0315 &\textbf{\textcolor{red}{0.0014}} &\textbf{\textcolor{red}{0.0183}} &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0169}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0072}} \\
-credit-scoring\_generation.csv &0.0027 &0.006 &0.1195 &0.0098 &0.1136 &-0.4113 &0.0837 \\
-credit-scoring\_generation\_2.csv &0.0255 &0.0128 &0.1751 &0.0055 &0.1623 &0.0652 &0.0299 \\
-credit-scoring\_generation\_3\_Sex.csv &-0.0118 &0.0063 &0.1006 &0.0156 &0.0943 &-0.3669 &0.1146 \\
-credit-scoring\_generation\_4\_Sex.csv &\textbf{\textcolor{red}{-0.0002}} &0.0034 &0.0358 &0.0302 &0.0324 &-0.004 &0.094 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
+\hline
+credit-scoring.csv &0.9958 &0.9892 &0.0315 &\textbf{\textcolor{red}{0.0014}} &\textbf{\textcolor{red}{0.0183}} &\textbf{\textcolor{red}{0.0002}} &\textbf{\textcolor{red}{0.0169}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0072}} \\
+credit-scoring\_generation.csv &0.9703 &0.7255 &0.0027 &0.006 &0.1195 &0.0098 &0.1136 &-0.4113 &0.0837 \\
+credit-scoring\_generation\_2.csv &0.926 &0.7713 &0.0255 &0.0128 &0.1751 &0.0055 &0.1623 &0.0652 &0.0299 \\
+credit-scoring\_generation\_3\_Sex.csv &0.9257 &0.5605 &-0.0118 &0.0063 &0.1006 &0.0156 &0.0943 &-0.3669 &0.1146 \\
+credit-scoring\_generation\_4\_Sex.csv &0.9455 &\textbf{\textcolor{red}{0.5278}} &\textbf{\textcolor{red}{-0.0002}} &0.0034 &0.0358 &0.0302 &0.0324 &-0.004 &0.094 \\
+credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8988}} &0.8113 &0.092 &0.0351 &0.0951 &0.0298 &0.06 &0.2398 &0.0316 \\
+credit-scoring\_generation\_6\_Sex.csv &0.9308 &0.6396 &0.0418 &0.0146 &0.21 &0.0343 &0.1954 &0.1676 &0.0444 \\
+credit-scoring\_generation\_7\_Sex.csv &0.9304 &0.6403 &0.0484 &0.0162 &0.2542 &0.0553 &0.238 &0.0935 &0.0415 \\
 \hline
 \end{tabular}
 \end{center}

@@ -106,9 +106,12 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             result_fold.append(Statistical_parity_dataset)
 
             # print("Statistical parity:")
-            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values,
+                                                                          y_predicts_fold, sa_index, p_Group)
             # print(Statistical_parity)
-            result_fold.append(Statistical_parity)
+            result_fold.append(Statistical_parity['accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['balanced_accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['fairness'].__round__(4))
 
             # print("Equal opportunity")
             Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
@@ -179,8 +182,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_sex.csv', 'german-credit-data_generation_4_sex.csv', 'german-credit-data_generation_5.csv'],
-                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_age.csv', 'german-credit-data_generation_4_age.csv', 'german-credit-data_generation_5.csv']]
+    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_sex.csv', 'german-credit-data_generation_4_sex.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_7_sex.csv'],
+                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_age.csv', 'german-credit-data_generation_4_age.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_7_age.csv']]
 
     protected_attribute_list = ['sex', 'age']
     majority_group_name_list = ['Male', 'From 25 to 65']
@@ -215,15 +218,17 @@ if __name__ == '__main__':
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{german-credit-data\\_" + protected_attribute + "}\n")
-        file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
+        file.write(
+            "\\caption{German credit data dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\begin{tabular}{c c c c c c c c c c}\n")
+        file.write("\\hline\n")
+        file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
         model_list = ['MLP', 'KNN', 'DT', 'LR']
         # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
         for model in range(np.shape(arr)[1]):
             file.write("\\hline\n")
-            file.write("\\textbf{Method}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
-            file.write("\\cline{2-8}\n")
-            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\\\\n")
+            file.write("\\textbf{}&\\multicolumn{9}{c}{\\textbf{" + model_list[model] + "}} \\\\\n")
+            file.write("\\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
                 file.write(file_list[gen].replace("_", "\\_") + " ")

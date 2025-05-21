@@ -12,32 +12,28 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
 
-def preprocessing_before_train(df_train, source):
+def preprocessing_before_train(df, source):
     if source.__contains__("adult"):
-        df_train['gender'] = [1 if v == 'Male' else 0 for v in df_train['gender']]
-        df_train['age'] = [1 if 25 <= v <= 65 else 0 for v in df_train['age']]
-        df_train['race'] = [1 if v == 'White' else 0 for v in df_train['race']]
+        df['gender'] = [1 if v == 'Male' else 0 for v in df['gender']]
+        df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+        df['race'] = [1 if v == 'White' else 0 for v in df['race']]
     elif source.__contains__("bank-marketing"):
-        df_train['age'] = [1 if 25 <= v <= 65 else 0 for v in df_train['age']]  # need to change
-        df_train['class-label'] = [1 if v == "yes" else 0 for v in df_train['class-label']]
+        df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]  # need to change
+        df['class-label'] = [1 if v == "yes" else 0 for v in df['class-label']]
     elif source.__contains__("credit-card-clients"):
-        df_train['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df_train['AGE']]
+        df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
     elif source.__contains__("german-credit-data"):
-        df_train['age'] = [1 if 25 <= v <= 65 else 0 for v in df_train['age']]
-        df_train['sex'] = [1 if v == 'male' else 0 for v in df_train['sex']]
+        df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+        df['sex'] = [1 if v == 'male' else 0 for v in df['sex']]
     elif source.__contains__("kdd-census-income"):
-        df_train['sex'] = [1 if v == 'Male' else 0 for v in df_train['sex']]
-        df_train['age'] = [1 if 25 <= v <= 65 else 0 for v in df_train['age']]
-        df_train['race'] = [1 if v == 'White' else 0 for v in df_train['race']]
+        df['sex'] = [1 if v == 'Male' else 0 for v in df['sex']]
+        df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+        df['race'] = [1 if v == 'White' else 0 for v in df['race']]
     elif source.__contains__("credit-scoring"):
-        df_train['Age'] = [1 if 25 <= v <= 65 else 0 for v in df_train['Age']]
+        df['Age'] = [1 if 25 <= v <= 65 else 0 for v in df['Age']]
     elif source.__contains__("PAKDD"):
-        df_train['SEX'] = [1 if v == 'M' else 0 for v in df_train['SEX']]
-        df_train['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df_train['AGE']]
-    return df_train
+        df['SEX'] = [1 if v == 'M' else 0 for v in df['SEX']]
+        df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
+    return df
 
 
-if __name__ == '__main__':
-    df = pd.read_csv(ROOT/'data'/'Origins'/'PAKDD.csv')
-    count = df['AGE'].value_counts()
-    count.to_csv(ROOT/'data'/'Origins'/'PAKDD_TEST.csv')

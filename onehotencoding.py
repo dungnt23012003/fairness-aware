@@ -25,7 +25,7 @@ def one_hot_decoding(df: pd.DataFrame, prefix_sep="_"):
     for col, needs_to_collapse in cols2collapse.items():
         if needs_to_collapse:
             undummified = (
-                df.filter(like=col)
+                df.filter(regex=f'^{col}', axis=1)
                 .idxmax(axis=1)
                 .apply(lambda x: x.split(prefix_sep, maxsplit=1)[1])
                 .rename(col)

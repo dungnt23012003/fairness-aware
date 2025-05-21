@@ -1,4 +1,14 @@
 import argparse
+import math
+import os
+
+from sklearn import preprocessing
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
 from normalization import *
 from onehotencoding import *
 from pathlib import Path
@@ -10,11 +20,12 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import numpy as np
 import warnings
-warnings.filterwarnings('ignore')
 
+warnings.filterwarnings('ignore')
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
+file_debugging = open('running/test.txt', 'w')
 
 
 def run(
@@ -29,6 +40,11 @@ def run(
         ns_G=0.8,
         ns_D=0.1,
         amount=1,
+        protected_attribute='sex',
+        priv_value=0,
+        class_label='class-label',
+        desire_label=1,
+        fair_loss_scale=0.1
 
 ):
     # Load data
@@ -37,24 +53,48 @@ def run(
 
     df = pd.read_csv(source_path)
     source_columns = df.columns
-
     df = df[continuous_columns+categorical_columns]
 
     # Find continuous data and normalization
     dict_min_max_value = {}
     df_conti = df[continuous_columns].astype('int64')
+
     for column in continuous_columns:
         min_val = df_conti[column].min()
         max_val = df_conti[column].max()
         dict_min_max_value.update({column: [min_val, max_val]})
-    print(dict_min_max_value)
+    # print(dict_min_max_value)
     norm_list = continuous_columns
     norm_types = ['standard' for i in range(len(norm_list))]
     df_conti_norm, dict_conti = norm(df_conti, norm_list, norm_types)
-
+    # print(dict_conti)
     # Find categorical data and one hot encoding
     df_category = df[categorical_columns].astype('category')
     cate_name, cate_class_number, cate_class, df_category_ohe = one_hot_encoding(df_category)
+
+
+    S_start_index = 0
+    Y_start_index = 0
+    underpriv_index = 1 - priv_value
+    priv_index = priv_value
+    undesire_index = 1 - desire_label
+    desire_index = desire_label
+
+    for (cateName, cateClassNumber) in zip(cate_name, cate_class_number):
+        if cateName != protected_attribute:
+            S_start_index += cateClassNumber
+        else:
+            S_start_index += continuous_columns.__len__()
+            S_start_index += -1
+            break
+
+    for (cateName, cateClassNumber) in zip(cate_name, cate_class_number):
+        if cateName != class_label:
+            Y_start_index += cateClassNumber
+        else:
+            Y_start_index += continuous_columns.__len__()
+            Y_start_index += -1
+            break
 
     # Combine data
     df_combine = pd.concat([df_conti_norm, df_category_ohe], axis=1)
@@ -85,6 +125,7 @@ def run(
     # Model initialization
     fixed_noise = torch.randn((batch_size, z_dim)).to(device)
 
+    # input_data.tofile("running/test.txt", sep=" ", format='%s')
     dataset = OlympicDataset(input_data, transform=transforms)
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
@@ -92,7 +133,9 @@ def run(
     gen = Generator(z_dim, image_dim, ns_G).to(device)
     opt_disc = optim.Adam(disc.parameters(), lr=lr)
     opt_gen = optim.Adam(gen.parameters(), lr=lr)
+
     criterion = torch.nn.BCELoss()
+    criterion_2 = FairLossFunc(S_start_index, Y_start_index, underpriv_index, priv_index, undesire_index, desire_index)
 
     df_real_continuous = df[df_conti.columns.to_numpy()].astype('int64')
     df_real_categorical = df[df_category.columns.to_numpy()].astype('category')
@@ -102,7 +145,6 @@ def run(
     step = 0
     for epoch in range(num_epochs):
         for batch_idx, real in enumerate(loader):
-
             real = real.view(-1, 1 * df_length).to(device)
             batch_size = real.shape[0]
 
@@ -110,6 +152,7 @@ def run(
             fake = gen(noise)
             disc_real = disc(real).view(-1)
             lossD_real = criterion(disc_real, torch.ones_like(disc_real))
+
             disc_fake = disc(fake).view(-1)
             lossD_fake = criterion(disc_fake, torch.zeros_like(disc_fake))
             lossD = (lossD_real + lossD_fake) / 2
@@ -120,8 +163,11 @@ def run(
             # Train Generator: min log(1 - D(G(z))) <-> max log(D(G(z))
             # where the second option of maximizing doesn't suffer from
             # saturating gradients
-            output = disc(fake).view(-1)
-            lossG = criterion(output, torch.ones_like(output))
+            noise_2 = torch.randn(batch_size, z_dim).to(device)
+            fake_2 = gen(noise_2)
+
+            output = disc(fake_2).view(-1)
+            lossG = criterion(output, torch.ones_like(output)) + criterion_2(fake_2, fair_loss_scale)
             gen.zero_grad()
             lossG.backward()
             opt_gen.step()
@@ -165,6 +211,7 @@ def run(
     # Save generated results
     df_fake_categorical = one_hot_decoding(final.iloc[:, len(continuous_columns):])[categorical_columns].astype(
         'category')
+
     df_fake_continuous = denorm(final[continuous_columns], norm_list, norm_types, dict_conti).apply(np.ceil).astype(
         'int64')
 
@@ -197,6 +244,11 @@ def parse_opt():
     parser.add_argument('--ns_G', type=float, default=0.8, help='leakyRelu negative slope of generator')
     parser.add_argument('--ns_D', type=float, default=0.1, help='leakyRelu negative slope of discriminator')
     parser.add_argument('--amount', type=float, default=1, help='percentage of generated data size over real data size')
+    parser.add_argument('--protected_attribute', type=str, default='sex', help='protected attribute')
+    parser.add_argument('--priv_value', type=int, default=0, help='privileged value')
+    parser.add_argument('--class_label', type=str, default='class-label', help='class label')
+    parser.add_argument('--desire_label', type=int, default='desire_label', help='desire_label')
+    parser.add_argument('--fair_loss_scale', type=float, default=0.1, help='fair_loss_scale')
     opt = parser.parse_args()
 
     return opt

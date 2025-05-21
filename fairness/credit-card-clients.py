@@ -41,7 +41,6 @@ def load_adult(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -105,9 +104,12 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             result_fold.append(Statistical_parity_dataset)
 
             # print("Statistical parity:")
-            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values,
+                                                                          y_predicts_fold, sa_index, p_Group)
             # print(Statistical_parity)
-            result_fold.append(Statistical_parity)
+            result_fold.append(Statistical_parity['accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['balanced_accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['fairness'].__round__(4))
 
             # print("Equal opportunity")
             Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
@@ -178,14 +180,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_SEX.csv', 'credit-card-clients_generation_4_SEX.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_SEX.csv'],
-                  ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_AGE.csv', 'credit-card-clients_generation_4_AGE.csv', 'credit-card-clients_generation_5.csv']]
+    file_lists = [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_SEX.csv', 'credit-card-clients_generation_7_SEX.csv', 'credit-card-clients_generation_7_SEX.csv'],
+                  ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_AGE.csv', 'credit-card-clients_generation_7_AGE.csv', 'credit-card-clients_generation_7_SEX.csv']]
 
     protected_attribute_list = ['SEX', 'AGE']
     majority_group_name_list = ['Male', 'From 25 to 65']
     minority_group_name_list = ['Female', 'Other']
     class_label = 'class-label'
-    p_Group_list = [2, 0]
+    p_Group_list = [0, 0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'credit-card-clients' / f'{protected_attribute}.csv', 'w')
@@ -214,15 +216,16 @@ if __name__ == '__main__':
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{credit-card-clients\\_" + protected_attribute + "}\n")
-        file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
-        # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
+        file.write("\\caption{Credit card clients dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\begin{tabular}{c c c c c c c c c c}\n")
+        file.write("\\hline\n")
+        file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
         model_list = ['MLP', 'KNN', 'DT', 'LR']
+        # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
         for model in range(np.shape(arr)[1]):
             file.write("\\hline\n")
-            file.write("\\textbf{Method}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
-            file.write("\\cline{2-8}\n")
-            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\\\\n")
+            file.write("\\textbf{}&\\multicolumn{9}{c}{\\textbf{" + model_list[model] + "}} \\\\\n")
+            file.write("\\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
                 file.write(file_list[gen].replace("_", "\\_") + " ")

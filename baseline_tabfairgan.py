@@ -57,7 +57,7 @@ def run_adult():
     # Generate synthetic data
     fake_df = tfg.generate_fake_df(num_rows=len(df))
     fake_df['age'] = [40 if v == '25<=x<=65' else 15 for v in df['age']]
-    fake_df.to_csv(ROOT / 'data' / 'Generations' / 'adult_generation_6_age.csv')
+    # fake_df.to_csv(ROOT / 'data' / 'Generations' / 'adult_generation_6_age.csv')
 
 
 def run_bank_marketing():
@@ -138,5 +138,36 @@ def run_credit_scoring():
 
 
 if __name__ == '__main__':
-    run_credit_scoring()
+
+    # file_name = ROOT / 'data' / 'Generations' / 'adult_generation_7_race.csv'
+    # df = pd.read_csv(file_name)
+    # df['gender'] = [1 if v == 'Male' else 0 for v in df['gender']]
+    # df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+    # df['race'] = [1 if v == 'White' else 0 for v in df['race']]
+    # df.to_csv(file_name, index=False)
+
+    # file_name = ROOT / 'data' / 'Generations' / 'bank-marketing_generation_7_age.csv'
+    # df = pd.read_csv(file_name)
+    # df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]  # need to change
+    # df['class-label'] = [1 if v == "yes" else 0 for v in df['class-label']]
+    # df.to_csv(file_name, index=False)
+    #
+    # file_name = ROOT / 'data' / 'Generations' / 'credit-card-clients_generation_7_AGE.csv'
+    # df = pd.read_csv(file_name)
+    # df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
+    # df['SEX'] = [1 if v == 1 else 0 for v in df['SEX']]
+    # df.to_csv(file_name, index=False)
+    #
+    # file_name = ROOT / 'data' / 'Generations' / 'credit-scoring_generation_6_Age.csv'
+    # df = pd.read_csv(file_name)
+    # df['Age'] = [1 if 25 <= v <= 65 else 0 for v in df['Age']]
+    # df['Sex'] = [1 if v == 1 else 0 for v in df['Sex']]
+    # df.to_csv(file_name, index=False)
+    #
+    file_name = ROOT / 'data' / 'Generations' / 'german-credit-data_generation_6_age.csv'
+    df = pd.read_csv(file_name)
+    df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+    df['sex'] = [1 if v == 'male' else 0 for v in df['sex']]
+    df.to_csv(file_name, index=False)
+
 

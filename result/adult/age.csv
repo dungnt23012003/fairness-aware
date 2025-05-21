@@ -1,51 +1,57 @@
 \begin{table}[H]
 \begin{center}
-\caption{adult\_age}
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\caption{Adult dataset: performance of predictive models. Protected attribute: age}
+\begin{tabular}{c c c c c c c c c c}
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{MLP}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+\textbf{Method}&\multicolumn{9}{c}{\textbf{Predictive model}} \\
 \hline
-adult.csv &0.0505 &0.1249 &0.1435 &0.1713 &0.0186 &-17.064 &0.1079 \\
-adult\_generation.csv &\textbf{\textcolor{red}{-0.0004}} &0.018 &0.0483 &0.2125 &0.0303 &-4.8006 &\textbf{\textcolor{red}{0.0266}} \\
-adult\_generation\_2.csv &0.0098 &\textbf{\textcolor{red}{0.0132}} &\textbf{\textcolor{red}{0.0132}} &0.0563 &0.0089 &\textbf{\textcolor{red}{-0.0647}} &0.0832 \\
-adult\_generation\_3\_age.csv &-0.0325 &0.185 &0.2295 &0.3742 &0.0445 &-4.2709 &0.11 \\
-adult\_generation\_4\_age.csv &0.0272 &0.1061 &0.1426 &\textbf{\textcolor{red}{0.0316}} &0.0269 &-0.1636 &0.0879 \\
-adult\_generation\_5.csv &0.0209 &0.0268 &0.0335 &0.3638 &\textbf{\textcolor{red}{0.0067}} &-22.0703 &0.0433 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{KNN}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+adult.csv &0.7722 &0.5626 &0.0392 &0.0981 &0.1122 &0.1266 &0.0141 &-13.9766 &0.1241 \\
+adult\_generation.csv &\textbf{\textcolor{red}{0.52}} &0.5387 &0.0115 &0.0334 &0.054 &0.1646 &0.0205 &-1.889 &\textbf{\textcolor{red}{0.0213}} \\
+adult\_generation\_2.csv &0.9827 &0.5277 &0.0018 &0.0909 &0.0938 &0.2818 &0.0023 &-10.0103 &0.0935 \\
+adult\_generation\_3\_age.csv &0.758 &0.523 &-0.0086 &0.078 &0.0905 &0.085 &0.0125 &\textbf{\textcolor{red}{-0.864}} &0.104 \\
+adult\_generation\_4\_age.csv &0.9919 &\textbf{\textcolor{red}{0.504}} &\textbf{\textcolor{red}{-0.0002}} &\textbf{\textcolor{red}{0.0152}} &\textbf{\textcolor{red}{0.0156}} &0.25 &\textbf{\textcolor{red}{0.0002}} &-5.0 &0.0559 \\
+adult\_generation\_5.csv &0.6907 &0.5547 &0.0241 &0.0355 &0.0423 &0.2878 &0.0068 &-5.6109 &0.0487 \\
+adult\_generation\_6\_age.csv &0.6294 &0.5471 &-0.1046 &0.0463 &0.0712 &0.6368 &0.0439 &inf &0.2517 \\
+adult\_generation\_7\_age.csv &0.7602 &0.5516 &-0.0102 &0.1861 &0.2037 &\textbf{\textcolor{red}{0.0601}} &0.0176 &-12.5662 &0.0807 \\
 \hline
-adult.csv &0.0888 &0.1354 &0.1733 &0.3154 &0.0379 &-2.6643 &0.0881 \\
-adult\_generation.csv &0.0226 &0.0304 &0.0582 &0.1886 &0.0278 &-1.3964 &0.0387 \\
-adult\_generation\_2.csv &0.0002 &0.0114 &0.0116 &nan &0.0002 &nan &0.0632 \\
-adult\_generation\_3\_age.csv &-0.0156 &0.0796 &0.1006 &\textbf{\textcolor{red}{0.078}} &0.0211 &\textbf{\textcolor{red}{-1.1621}} &0.1143 \\
-adult\_generation\_4\_age.csv &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0001}} &nan &\textbf{\textcolor{red}{0.0001}} &nan &0.1462 \\
-adult\_generation\_5.csv &0.0356 &0.0516 &0.061 &0.3003 &0.0094 &-3.3546 &\textbf{\textcolor{red}{0.0363}} \\
+\textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{DT}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+adult.csv &0.7718 &0.6228 &0.0888 &0.1354 &0.1733 &0.3154 &0.0379 &-2.6643 &0.0881 \\
+adult\_generation.csv &\textbf{\textcolor{red}{0.6204}} &0.5968 &0.0226 &0.0304 &0.0582 &0.1886 &0.0278 &-1.3964 &0.0387 \\
+adult\_generation\_2.csv &0.9906 &0.5039 &0.0002 &0.0114 &0.0116 &nan &0.0002 &nan &0.0632 \\
+adult\_generation\_3\_age.csv &0.9196 &0.5454 &-0.0156 &0.0796 &0.1006 &0.078 &0.0211 &\textbf{\textcolor{red}{-1.1621}} &0.1143 \\
+adult\_generation\_4\_age.csv &0.992 &\textbf{\textcolor{red}{0.5}} &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0001}} &nan &\textbf{\textcolor{red}{0.0001}} &nan &0.1462 \\
+adult\_generation\_5.csv &0.8127 &0.5832 &0.0356 &0.0516 &0.061 &0.3003 &0.0094 &-3.3546 &\textbf{\textcolor{red}{0.0363}} \\
+adult\_generation\_6\_age.csv &0.7033 &0.5405 &-0.1029 &0.0429 &0.948 &0.6444 &0.8773 &101.8187 &0.5118 \\
+adult\_generation\_7\_age.csv &0.7321 &0.5556 &-0.0263 &0.2401 &0.2466 &\textbf{\textcolor{red}{0.0249}} &0.0066 &-2.4867 &0.1434 \\
 \hline
-adult.csv &0.2501 &0.0931 &0.2267 &0.169 &0.1335 &-0.2244 &0.0534 \\
-adult\_generation.csv &0.0861 &\textbf{\textcolor{red}{0.039}} &\textbf{\textcolor{red}{0.0879}} &0.2009 &0.049 &-1.4131 &\textbf{\textcolor{red}{0.023}} \\
-adult\_generation\_2.csv &\textbf{\textcolor{red}{0.0058}} &0.2281 &0.2345 &\textbf{\textcolor{red}{0.0816}} &\textbf{\textcolor{red}{0.0053}} &\textbf{\textcolor{red}{0.0435}} &0.1132 \\
-adult\_generation\_3\_age.csv &0.0211 &0.2463 &0.2675 &0.2317 &0.0212 &-2.5238 &0.1337 \\
-adult\_generation\_4\_age.csv &0.0126 &0.4466 &0.4628 &0.4555 &0.0099 &-5.5351 &0.2304 \\
-adult\_generation\_5.csv &0.1487 &0.0552 &0.1416 &0.1264 &0.0865 &-0.3119 &0.0413 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-\textbf{Method}&\multicolumn{7}{|c|}{\textbf{LR}} \\
-\cline{2-8}
-\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\
+adult.csv &0.8094 &0.7487 &0.2512 &0.0798 &0.2156 &0.1431 &0.1358 &-0.1955 &0.0517 \\
+adult\_generation.csv &\textbf{\textcolor{red}{0.66}} &\textbf{\textcolor{red}{0.6559}} &0.0775 &0.042 &\textbf{\textcolor{red}{0.0955}} &0.2122 &0.0535 &-1.5089 &\textbf{\textcolor{red}{0.022}} \\
+adult\_generation\_2.csv &0.9772 &0.7111 &\textbf{\textcolor{red}{0.0059}} &0.1845 &0.1912 &0.1362 &\textbf{\textcolor{red}{0.0055}} &-0.7282 &0.0911 \\
+adult\_generation\_3\_age.csv &0.8866 &0.693 &0.0243 &0.2762 &0.2989 &0.2435 &0.0227 &-2.1213 &0.1394 \\
+adult\_generation\_4\_age.csv &0.981 &0.7347 &0.0148 &0.4769 &0.4963 &0.46 &0.0118 &-5.0351 &0.244 \\
+adult\_generation\_5.csv &0.8181 &0.7135 &0.144 &\textbf{\textcolor{red}{0.0387}} &0.1206 &0.1425 &0.0818 &-0.3678 &0.0384 \\
+adult\_generation\_6\_age.csv &0.7712 &0.7029 &-0.7348 &0.4502 &1.3147 &0.4691 &0.8418 &\textbf{\textcolor{red}{0.0019}} &0.1888 \\
+adult\_generation\_7\_age.csv &0.7675 &0.6918 &0.1196 &0.1508 &0.2615 &\textbf{\textcolor{red}{0.0834}} &0.1107 &-0.2384 &0.1266 \\
 \hline
-adult.csv &0.0766 &0.1835 &0.2125 &0.2243 &0.029 &-4.6857 &0.1214 \\
-adult\_generation.csv &0.0547 &0.0417 &0.0777 &0.161 &0.036 &-1.7058 &\textbf{\textcolor{red}{0.0316}} \\
-adult\_generation\_2.csv &0.0047 &0.1172 &0.122 &0.063 &0.0038 &\textbf{\textcolor{red}{0.3109}} &0.2148 \\
-adult\_generation\_3\_age.csv &-0.0251 &\textbf{\textcolor{red}{0.0228}} &\textbf{\textcolor{red}{0.0534}} &0.1676 &0.0306 &-3.7016 &0.1199 \\
-adult\_generation\_4\_age.csv &\textbf{\textcolor{red}{0.0017}} &0.1212 &0.1226 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0008}} &-2.8333 &0.3236 \\
-adult\_generation\_5.csv &0.036 &0.0629 &0.0771 &0.2467 &0.0142 &-2.723 &0.0517 \\
+\textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
+\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
+\hline
+adult.csv &0.7878 &0.6194 &0.0766 &0.1835 &0.2125 &0.2243 &0.029 &-4.6857 &0.1214 \\
+adult\_generation.csv &\textbf{\textcolor{red}{0.6709}} &0.6456 &0.0547 &0.0417 &0.0777 &0.161 &0.036 &-1.7058 &\textbf{\textcolor{red}{0.0316}} \\
+adult\_generation\_2.csv &0.9821 &0.5353 &0.0047 &0.1172 &0.122 &0.063 &0.0038 &\textbf{\textcolor{red}{0.3109}} &0.2148 \\
+adult\_generation\_3\_age.csv &0.9194 &0.5355 &-0.0251 &\textbf{\textcolor{red}{0.0228}} &\textbf{\textcolor{red}{0.0534}} &0.1676 &0.0306 &-3.7016 &0.1199 \\
+adult\_generation\_4\_age.csv &0.9917 &0.5514 &\textbf{\textcolor{red}{0.0017}} &0.1212 &0.1226 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0008}} &-2.8333 &0.3236 \\
+adult\_generation\_5.csv &0.8191 &0.5603 &0.036 &0.0629 &0.0771 &0.2467 &0.0142 &-2.723 &0.0517 \\
+adult\_generation\_6\_age.csv &0.7364 &\textbf{\textcolor{red}{0.5279}} &-0.0959 &0.0568 &0.1118 &0.5607 &0.0446 &inf &0.3753 \\
+adult\_generation\_7\_age.csv &0.7585 &0.5607 &-0.0375 &0.2932 &0.3018 &0.0459 &0.0086 &-6.5911 &0.218 \\
 \hline
 \end{tabular}
 \end{center}
