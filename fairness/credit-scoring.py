@@ -41,7 +41,6 @@ def load_credit_scoring(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['Age'] = [1 if 25 <= v <= 65 else 0 for v in df['Age']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -180,14 +179,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Sex.csv', 'credit-scoring_generation_4_Sex.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv', 'credit-scoring_generation_7_Sex.csv'],
-                  ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Age.csv', 'credit-scoring_generation_4_Age.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Age.csv', 'credit-scoring_generation_7_Age.csv']]
+    file_lists = [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv', 'credit-scoring_generation_7_Sex.csv', 'credit-scoring_generation_8_Sex.csv'],
+                  ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Age.csv', 'credit-scoring_generation_7_Age.csv', 'credit-scoring_generation_8_Age.csv']]
 
     protected_attribute_list = ['Sex', 'Age']
     majority_group_name_list = ['Male', 'From 25 to 65']
     minority_group_name_list = ['Female', 'Other']
     class_label = 'class-label'
-    p_Group_list = [2, 0]
+    p_Group_list = [0, 0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'credit-scoring' / f'{protected_attribute}.csv', 'w')
@@ -203,16 +202,28 @@ if __name__ == '__main__':
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
-                min_position = -1
-                for gen in range(np.shape(arr)[0]):
-                    if not math.isnan(arr[gen][model][score]):
-                        min_position = gen
-                        break
-                if min_position != -1:
+                if score == 1 or score == 2:
+                    max_position = -1
                     for gen in range(np.shape(arr)[0]):
-                        if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                        if not math.isnan(arr[gen][model][score]):
+                            max_position = gen
+                            break
+                    if max_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) >= abs(arr[max_position][model][score]):
+                                max_position = gen
+                        arr_tmp[max_position][model][score] = 1
+                else:
+                    min_position = -1
+                    for gen in range(np.shape(arr)[0]):
+                        if not math.isnan(arr[gen][model][score]):
                             min_position = gen
-                    arr_tmp[min_position][model][score] = 1
+                            break
+                    if min_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                                min_position = gen
+                        arr_tmp[min_position][model][score] = 1
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")

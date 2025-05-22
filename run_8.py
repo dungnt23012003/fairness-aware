@@ -72,7 +72,6 @@ def run(
     df_category = df[categorical_columns].astype('category')
     cate_name, cate_class_number, cate_class, df_category_ohe = one_hot_encoding(df_category)
 
-
     S_start_index = 0
     Y_start_index = 0
     underpriv_index = 1 - priv_value
@@ -85,7 +84,6 @@ def run(
             S_start_index += cateClassNumber
         else:
             S_start_index += continuous_columns.__len__()
-            S_start_index += -1
             break
 
     for (cateName, cateClassNumber) in zip(cate_name, cate_class_number):
@@ -93,12 +91,11 @@ def run(
             Y_start_index += cateClassNumber
         else:
             Y_start_index += continuous_columns.__len__()
-            Y_start_index += -1
             break
 
     # Combine data
     df_combine = pd.concat([df_conti_norm, df_category_ohe], axis=1)
-
+    
     # Reshape data
     df_length = len(df_combine.columns)
     input_data = df_combine.to_numpy().flatten().reshape(-1, 1, 1, df_length)

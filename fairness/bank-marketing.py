@@ -41,7 +41,6 @@ def load_adult(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-
     le = preprocessing.LabelEncoder()
     for i in df.columns:
         if df[i].dtypes == 'object':
@@ -201,16 +200,28 @@ if __name__ == '__main__':
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
-                min_position = -1
-                for gen in range(np.shape(arr)[0]):
-                    if not math.isnan(arr[gen][model][score]):
-                        min_position = gen
-                        break
-                if min_position != -1:
+                if score == 1 or score == 2:
+                    max_position = -1
                     for gen in range(np.shape(arr)[0]):
-                        if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                        if not math.isnan(arr[gen][model][score]):
+                            max_position = gen
+                            break
+                    if max_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) >= abs(arr[max_position][model][score]):
+                                max_position = gen
+                        arr_tmp[max_position][model][score] = 1
+                else:
+                    min_position = -1
+                    for gen in range(np.shape(arr)[0]):
+                        if not math.isnan(arr[gen][model][score]):
                             min_position = gen
-                    arr_tmp[min_position][model][score] = 1
+                            break
+                    if min_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                                min_position = gen
+                        arr_tmp[min_position][model][score] = 1
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")

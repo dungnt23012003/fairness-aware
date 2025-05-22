@@ -41,10 +41,6 @@ def load_adult(file, protected_attribute, class_label):
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
 
-    df['gender'] = [1 if v == 'Male' else 0 for v in df['gender']]
-    df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    df['race'] = [1 if v == 'White' else 0 for v in df['race']]
-
     le = preprocessing.LabelEncoder()
     for i in df.columns:
         if df[i].dtypes == 'object':
@@ -181,9 +177,9 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_7_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_7_race.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_7_age.csv']]
+    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_7_gender.csv', 'adult_generation_8_gender.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_7_race.csv', 'adult_generation_8_race.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_7_age.csv', 'adult_generation_8_age.csv']]
 
     protected_attribute_list = ['gender', 'race', 'age']
     majority_group_name_list = ['Male', 'White', 'From 25 to 65']
@@ -205,16 +201,28 @@ if __name__ == '__main__':
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
-                min_position = -1
-                for gen in range(np.shape(arr)[0]):
-                    if not math.isnan(arr[gen][model][score]):
-                        min_position = gen
-                        break
-                if min_position != -1:
+                if score == 1 or score == 2:
+                    max_position = -1
                     for gen in range(np.shape(arr)[0]):
-                        if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                        if not math.isnan(arr[gen][model][score]):
+                            max_position = gen
+                            break
+                    if max_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) >= abs(arr[max_position][model][score]):
+                                max_position = gen
+                        arr_tmp[max_position][model][score] = 1
+                else:
+                    min_position = -1
+                    for gen in range(np.shape(arr)[0]):
+                        if not math.isnan(arr[gen][model][score]):
                             min_position = gen
-                    arr_tmp[min_position][model][score] = 1
+                            break
+                    if min_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                                min_position = gen
+                        arr_tmp[min_position][model][score] = 1
 
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
