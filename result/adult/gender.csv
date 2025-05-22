@@ -8,46 +8,46 @@
 \textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-adult.csv &0.562 &0.5882 &0.0885 &0.0784 &0.131 &0.1917 &0.0526 &\textbf{\textcolor{red}{-1.5533}} &0.0649 \\
-adult\_generation.csv &0.9826 &\textbf{\textcolor{red}{0.5}} &\textbf{\textcolor{red}{0.0001}} &0.0 &0.0003 &nan &\textbf{\textcolor{red}{0.0001}} &nan &0.0015 \\
-adult\_generation\_2.csv &0.5712 &0.5002 &-0.0107 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.7043 &0.0054 &-22.4444 &\textbf{\textcolor{red}{0.0009}} \\
-adult\_generation\_5.csv &0.8078 &0.5662 &0.0324 &0.0338 &0.0461 &0.196 &0.0123 &-16.6799 &0.0271 \\
-adult\_generation\_6\_gender.csv &0.6137 &0.5299 &0.0428 &0.053 &0.0917 &\textbf{\textcolor{red}{0.0611}} &0.0387 &4.8337 &0.022 \\
-adult\_generation\_7\_gender.csv &\textbf{\textcolor{red}{0.5462}} &0.5275 &0.0216 &0.083 &0.1071 &0.0823 &0.024 &-2.26 &0.0487 \\
-adult\_generation\_8\_gender.csv &0.9156 &0.7683 &-0.1927 &0.1151 &0.1467 &0.2577 &0.0458 &-3.1142 &0.057 \\
+Origins &0.739 &\textbf{\textcolor{red}{0.6382}} &0.1647 &0.1478 &0.2622 &0.1912 &0.1144 &-2.5513 &0.0786 \\
+DGGAN &\textbf{\textcolor{red}{0.9616}} &0.5061 &0.0362 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0298}} &0.0362 &\textbf{\textcolor{red}{-0.1492}} &\textbf{\textcolor{red}{0.002}} \\
+GAN2 &0.5182 &0.4977 &0.05 &0.0455 &0.193 &0.6603 &0.0523 &-89.2332 &0.1409 \\
+CTGAN &0.6962 &0.5889 &0.0366 &0.0306 &0.0406 &0.202 &\textbf{\textcolor{red}{0.01}} &-2.0108 &0.0233 \\
+TabFairGan &0.6282 &0.517 &\textbf{\textcolor{red}{0.0112}} &0.0122 &0.0283 &0.0846 &0.0161 &-174.4325 &0.0156 \\
+FixedTabFairGan &0.5418 &0.52 &0.0215 &0.0395 &0.0653 &0.1095 &0.0258 &-13.0727 &0.0284 \\
+FixedDGGAN &0.5659 &0.5566 &0.3231 &0.0888 &0.4076 &0.1851 &0.3187 &-0.3152 &0.2077 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-adult.csv &0.7718 &0.6228 &0.0689 &0.0147 &0.0369 &0.2504 &0.0222 &-2.0808 &0.0159 \\
-adult\_generation.csv &0.9822 &\textbf{\textcolor{red}{0.501}} &\textbf{\textcolor{red}{-0.0002}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0001}} &0.35 &\textbf{\textcolor{red}{0.0003}} &-98.0 &0.0733 \\
-adult\_generation\_2.csv &\textbf{\textcolor{red}{0.5814}} &0.5526 &0.1722 &0.003 &0.0638 &0.7618 &0.1014 &-1.7643 &0.0701 \\
-adult\_generation\_5.csv &0.8127 &0.5832 &0.0343 &0.0415 &0.0496 &0.2751 &0.0081 &-3.2464 &0.0234 \\
-adult\_generation\_6\_gender.csv &0.6855 &0.5438 &0.0157 &0.0125 &0.0265 &\textbf{\textcolor{red}{0.0195}} &0.014 &\textbf{\textcolor{red}{-0.0382}} &\textbf{\textcolor{red}{0.014}} \\
-adult\_generation\_7\_gender.csv &0.7227 &0.5459 &0.0054 &0.0687 &0.0857 &0.113 &0.0171 &-1.9739 &0.0598 \\
-adult\_generation\_8\_gender.csv &0.9432 &0.6847 &-0.1288 &0.0638 &0.0712 &0.0703 &0.0156 &0.7097 &0.0448 \\
+Origins &0.7718 &\textbf{\textcolor{red}{0.6228}} &0.0689 &0.0147 &0.0369 &0.2504 &0.0222 &-2.0808 &0.0159 \\
+DGGAN &\textbf{\textcolor{red}{0.9822}} &0.501 &\textbf{\textcolor{red}{-0.0002}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0001}} &0.35 &\textbf{\textcolor{red}{0.0003}} &-98.0 &0.0733 \\
+GAN2 &0.5814 &0.5526 &0.1722 &0.003 &0.0638 &0.7618 &0.1014 &-1.7643 &0.0701 \\
+CTGAN &0.8127 &0.5832 &0.0343 &0.0415 &0.0496 &0.2751 &0.0081 &-3.2464 &0.0234 \\
+TabFairGan &0.6855 &0.5438 &0.0157 &0.0125 &0.0265 &\textbf{\textcolor{red}{0.0195}} &0.014 &\textbf{\textcolor{red}{-0.0382}} &\textbf{\textcolor{red}{0.014}} \\
+FixedTabFairGan &0.7227 &0.5459 &0.0054 &0.0687 &0.0857 &0.113 &0.0171 &-1.9739 &0.0598 \\
+FixedDGGAN &0.5846 &0.5761 &0.1384 &0.1696 &0.2916 &0.2828 &0.122 &-0.5721 &0.2034 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-adult.csv &0.8101 &0.7501 &0.1998 &0.0896 &0.1976 &0.1041 &0.108 &-0.047 &0.0413 \\
-adult\_generation.csv &0.9143 &\textbf{\textcolor{red}{0.6134}} &0.0531 &0.3743 &0.5762 &0.4316 &0.0772 &0.552 &0.1039 \\
-adult\_generation\_2.csv &\textbf{\textcolor{red}{0.645}} &0.6403 &0.4874 &0.3979 &0.4555 &0.8213 &0.1662 &-32.2324 &0.1725 \\
-adult\_generation\_5.csv &0.8175 &0.7121 &0.144 &0.1347 &0.2111 &0.1588 &0.0763 &-0.0686 &0.0488 \\
-adult\_generation\_6\_gender.csv &0.7554 &0.6975 &\textbf{\textcolor{red}{0.0238}} &\textbf{\textcolor{red}{0.0255}} &\textbf{\textcolor{red}{0.0454}} &\textbf{\textcolor{red}{0.0115}} &\textbf{\textcolor{red}{0.0199}} &\textbf{\textcolor{red}{-0.0239}} &\textbf{\textcolor{red}{0.0163}} \\
-adult\_generation\_7\_gender.csv &0.7662 &0.6904 &0.1361 &0.0409 &0.1322 &0.0781 &0.0913 &-0.1355 &0.0237 \\
-adult\_generation\_8\_gender.csv &0.8433 &0.7502 &-0.1152 &0.0741 &0.0911 &0.3485 &0.0329 &0.7851 &0.0428 \\
+Origins &0.8099 &\textbf{\textcolor{red}{0.7497}} &0.1999 &0.0966 &0.2037 &0.1093 &0.1071 &-0.0398 &0.0434 \\
+DGGAN &\textbf{\textcolor{red}{0.9146}} &0.6117 &0.0548 &0.3743 &0.5725 &0.437 &0.0758 &0.6484 &0.1053 \\
+GAN2 &0.6439 &0.6392 &0.4882 &0.4048 &0.4641 &0.8195 &0.1678 &-26.4945 &0.1752 \\
+CTGAN &0.8168 &0.7125 &0.1462 &0.1472 &0.2241 &0.1663 &0.0769 &-0.0535 &0.0529 \\
+TabFairGan &0.7571 &0.6995 &\textbf{\textcolor{red}{0.0225}} &\textbf{\textcolor{red}{0.0231}} &\textbf{\textcolor{red}{0.0429}} &\textbf{\textcolor{red}{0.007}} &\textbf{\textcolor{red}{0.0198}} &\textbf{\textcolor{red}{-0.0395}} &\textbf{\textcolor{red}{0.0158}} \\
+FixedTabFairGan &0.7651 &0.6894 &0.1394 &0.0433 &0.1386 &0.0723 &0.0953 &-0.1073 &0.0294 \\
+FixedDGGAN &0.5424 &0.5427 &0.2417 &0.2148 &0.4073 &0.3567 &0.1925 &-0.2724 &0.0216 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-adult.csv &0.7878 &0.6194 &0.0609 &0.0195 &0.0341 &0.2295 &0.0146 &-3.7596 &0.027 \\
-adult\_generation.csv &0.9823 &\textbf{\textcolor{red}{0.4999}} &\textbf{\textcolor{red}{-0.0009}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0037}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0009}} &-14.6667 &0.1823 \\
-adult\_generation\_2.csv &\textbf{\textcolor{red}{0.6355}} &0.5806 &0.3024 &0.2199 &0.4015 &0.7802 &0.1713 &\textbf{\textcolor{red}{-1.3495}} &0.1246 \\
-adult\_generation\_5.csv &0.8191 &0.5603 &0.0242 &0.0222 &0.0278 &0.2214 &0.0057 &-7.1932 &\textbf{\textcolor{red}{0.0189}} \\
-adult\_generation\_6\_gender.csv &0.7314 &0.5592 &0.0348 &0.0446 &0.0713 &0.0798 &0.0267 &5.0814 &0.0461 \\
-adult\_generation\_7\_gender.csv &0.7533 &0.5584 &-0.0116 &0.108 &0.1198 &0.1301 &0.0119 &-5.1645 &0.0709 \\
-adult\_generation\_8\_gender.csv &0.938 &0.7166 &-0.1549 &0.0777 &0.0723 &0.2592 &0.0138 &4.5883 &0.0502 \\
+Origins &0.7878 &\textbf{\textcolor{red}{0.6194}} &0.0609 &0.0195 &0.0341 &0.2295 &0.0146 &-3.7596 &0.027 \\
+DGGAN &\textbf{\textcolor{red}{0.9823}} &0.4999 &\textbf{\textcolor{red}{-0.0009}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0037}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0009}} &-14.6667 &0.1823 \\
+GAN2 &0.6355 &0.5806 &0.3024 &0.2199 &0.4015 &0.7802 &0.1713 &-1.3495 &0.1246 \\
+CTGAN &0.8191 &0.5603 &0.0242 &0.0222 &0.0278 &0.2214 &0.0057 &-7.1932 &\textbf{\textcolor{red}{0.0189}} \\
+TabFairGan &0.7314 &0.5592 &0.0348 &0.0446 &0.0713 &0.0798 &0.0267 &5.0814 &0.0461 \\
+FixedTabFairGan &0.7533 &0.5584 &-0.0116 &0.108 &0.1198 &0.1301 &0.0119 &-5.1645 &0.0709 \\
+FixedDGGAN &0.6357 &0.6189 &0.3084 &0.088 &0.3823 &0.2001 &0.2943 &\textbf{\textcolor{red}{-0.3313}} &0.1938 \\
 \hline
 \end{tabular}
 \end{center}

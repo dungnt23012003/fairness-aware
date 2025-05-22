@@ -225,6 +225,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
+        model_gen_list = ['Origins', 'DGGAN', 'GAN2', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{Credit scoring dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
@@ -239,7 +240,7 @@ if __name__ == '__main__':
             file.write("\\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
-                file.write(file_list[gen].replace("_", "\\_") + " ")
+                file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
                         file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")

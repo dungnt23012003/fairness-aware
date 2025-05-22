@@ -8,46 +8,46 @@
 \textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-german-credit-data.csv &\textbf{\textcolor{red}{0.517}} &\textbf{\textcolor{red}{0.4931}} &-0.0295 &0.0277 &0.1092 &0.1556 &0.0815 &-16.7124 &0.0861 \\
-german-credit-data\_generation.csv &0.5971 &0.5509 &-0.0163 &0.033 &0.0784 &0.1017 &0.0453 &-1.2121 &0.0722 \\
-german-credit-data\_generation\_2.csv &0.5541 &0.5011 &0.0338 &0.0494 &0.064 &0.1442 &0.0146 &3.7909 &0.1566 \\
-german-credit-data\_generation\_5.csv &0.6607 &0.4979 &0.0572 &0.0576 &0.1143 &0.0238 &0.0567 &0.3031 &0.0299 \\
-german-credit-data\_generation\_6\_sex.csv &0.733 &0.499 &0.0149 &0.0138 &0.0493 &0.067 &0.0356 &0.0702 &0.0827 \\
-german-credit-data\_generation\_7\_sex.csv &0.6384 &0.5032 &\textbf{\textcolor{red}{-0.0018}} &\textbf{\textcolor{red}{0.0013}} &\textbf{\textcolor{red}{0.0037}} &\textbf{\textcolor{red}{0.0179}} &\textbf{\textcolor{red}{0.0024}} &0.0253 &\textbf{\textcolor{red}{0.016}} \\
-german-credit-data\_generation\_8\_sex.csv &0.6994 &0.5029 &-0.0038 &0.0018 &0.0102 &0.069 &0.0083 &\textbf{\textcolor{red}{-0.0043}} &0.1424 \\
+Origins &0.603 &\textbf{\textcolor{red}{0.5383}} &-0.0056 &0.0417 &0.1243 &0.0866 &0.0826 &2.3069 &0.0949 \\
+DGGAN &0.6118 &0.5304 &0.0187 &0.0182 &0.0535 &0.092 &0.0352 &0.4176 &0.0715 \\
+GAN2 &0.6756 &0.5082 &0.0535 &0.0646 &0.1268 &0.0602 &0.0623 &0.1827 &0.1112 \\
+CTGAN &\textbf{\textcolor{red}{0.7484}} &0.5001 &0.0236 &0.0232 &0.0487 &0.0227 &0.0254 &0.4261 &0.0222 \\
+TabFairGan &0.556 &0.4956 &0.0181 &0.035 &0.043 &0.0881 &0.008 &0.3993 &0.0902 \\
+FixedTabFairGan &0.6063 &0.5043 &-0.0047 &\textbf{\textcolor{red}{0.0138}} &\textbf{\textcolor{red}{0.02}} &\textbf{\textcolor{red}{0.0167}} &\textbf{\textcolor{red}{0.0063}} &-0.354 &\textbf{\textcolor{red}{0.0217}} \\
+FixedDGGAN &0.5067 &0.5029 &\textbf{\textcolor{red}{0.0019}} &0.0202 &0.0387 &0.1216 &0.0185 &\textbf{\textcolor{red}{0.0347}} &0.0973 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-german-credit-data.csv &0.666 &0.5376 &\textbf{\textcolor{red}{0.0004}} &0.0161 &0.0312 &0.0766 &0.0151 &-0.1756 &0.0786 \\
-german-credit-data\_generation.csv &0.6103 &0.5715 &-0.0216 &0.072 &0.1765 &0.107 &0.1045 &-0.5032 &0.0733 \\
-german-credit-data\_generation\_2.csv &\textbf{\textcolor{red}{0.6}} &\textbf{\textcolor{red}{0.4807}} &0.0219 &0.1017 &0.2138 &0.1055 &0.1121 &0.1369 &0.1094 \\
-german-credit-data\_generation\_5.csv &0.7851 &0.5022 &0.0102 &0.0122 &\textbf{\textcolor{red}{0.0201}} &0.0252 &\textbf{\textcolor{red}{0.0079}} &0.0238 &\textbf{\textcolor{red}{0.0184}} \\
-german-credit-data\_generation\_6\_sex.csv &0.715 &0.5412 &-0.0116 &0.0244 &0.1302 &0.0553 &0.1058 &0.1194 &0.093 \\
-german-credit-data\_generation\_7\_sex.csv &0.6005 &0.5013 &0.004 &\textbf{\textcolor{red}{0.0085}} &0.0383 &\textbf{\textcolor{red}{0.024}} &0.0298 &\textbf{\textcolor{red}{0.0156}} &0.0226 \\
-german-credit-data\_generation\_8\_sex.csv &0.6402 &0.5026 &-0.0172 &0.0271 &0.0715 &0.0783 &0.0444 &-0.055 &0.098 \\
+Origins &0.666 &0.5376 &\textbf{\textcolor{red}{0.0004}} &0.0161 &0.0312 &0.0766 &0.0151 &-0.1756 &0.0786 \\
+DGGAN &0.6103 &\textbf{\textcolor{red}{0.5715}} &-0.0216 &0.072 &0.1765 &0.107 &0.1045 &-0.5032 &0.0733 \\
+GAN2 &0.6 &0.4807 &0.0219 &0.1017 &0.2138 &0.1055 &0.1121 &0.1369 &0.1094 \\
+CTGAN &\textbf{\textcolor{red}{0.7851}} &0.5022 &0.0102 &0.0122 &\textbf{\textcolor{red}{0.0201}} &0.0252 &\textbf{\textcolor{red}{0.0079}} &0.0238 &\textbf{\textcolor{red}{0.0184}} \\
+TabFairGan &0.715 &0.5412 &-0.0116 &0.0244 &0.1302 &0.0553 &0.1058 &0.1194 &0.093 \\
+FixedTabFairGan &0.6005 &0.5013 &0.004 &\textbf{\textcolor{red}{0.0085}} &0.0383 &\textbf{\textcolor{red}{0.024}} &0.0298 &\textbf{\textcolor{red}{0.0156}} &0.0226 \\
+FixedDGGAN &0.5011 &0.5008 &-0.0524 &0.034 &0.1316 &0.1524 &0.0976 &-0.9112 &0.0664 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-german-credit-data.csv &0.688 &0.6324 &0.0304 &0.0769 &0.1832 &0.0458 &0.1063 &-0.2806 &0.0916 \\
-german-credit-data\_generation.csv &0.6352 &0.6119 &0.0463 &0.0576 &0.1383 &0.1099 &0.0806 &-0.3355 &0.0686 \\
-german-credit-data\_generation\_2.csv &0.6 &0.5421 &0.0195 &0.0861 &0.1422 &0.0671 &0.0561 &0.2628 &0.0236 \\
-german-credit-data\_generation\_5.csv &0.6807 &0.5113 &0.0206 &0.0217 &0.0521 &0.0238 &0.0304 &-0.0424 &\textbf{\textcolor{red}{0.0099}} \\
-german-credit-data\_generation\_6\_sex.csv &0.6 &\textbf{\textcolor{red}{0.4953}} &-0.0592 &0.0824 &0.181 &0.0812 &0.0986 &0.2291 &0.0712 \\
-german-credit-data\_generation\_7\_sex.csv &\textbf{\textcolor{red}{0.5531}} &0.5021 &\textbf{\textcolor{red}{0.0025}} &\textbf{\textcolor{red}{0.0143}} &\textbf{\textcolor{red}{0.0418}} &\textbf{\textcolor{red}{0.0196}} &\textbf{\textcolor{red}{0.0275}} &\textbf{\textcolor{red}{0.0214}} &0.0125 \\
-german-credit-data\_generation\_8\_sex.csv &0.6704 &0.6188 &0.0129 &0.1359 &0.313 &0.1115 &0.1771 &-0.3231 &0.1185 \\
+Origins &\textbf{\textcolor{red}{0.688}} &\textbf{\textcolor{red}{0.6333}} &0.026 &0.0677 &0.1697 &0.0393 &0.102 &-0.3124 &0.0779 \\
+DGGAN &0.6282 &0.6066 &0.0417 &0.0641 &0.1316 &0.1066 &0.0675 &-0.3675 &0.0543 \\
+GAN2 &0.5896 &0.5268 &0.0483 &0.0795 &0.2268 &0.0333 &0.1473 &0.2898 &0.0837 \\
+CTGAN &0.6809 &0.5113 &0.021 &0.0196 &0.0452 &0.022 &\textbf{\textcolor{red}{0.0257}} &-0.0381 &\textbf{\textcolor{red}{0.011}} \\
+TabFairGan &0.597 &0.4894 &-0.0493 &0.0755 &0.1805 &0.0702 &0.105 &0.2232 &0.0553 \\
+FixedTabFairGan &0.5548 &0.5042 &\textbf{\textcolor{red}{-0.0073}} &\textbf{\textcolor{red}{0.0087}} &\textbf{\textcolor{red}{0.0376}} &\textbf{\textcolor{red}{0.0208}} &0.0289 &\textbf{\textcolor{red}{-0.0235}} &0.0145 \\
+FixedDGGAN &0.5246 &0.5216 &0.031 &0.0952 &0.2451 &0.1184 &0.1499 &-0.4267 &0.0805 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-german-credit-data.csv &0.721 &0.6017 &0.0453 &0.0345 &0.1831 &0.0585 &0.1487 &-0.0999 &0.0857 \\
-german-credit-data\_generation.csv &0.7128 &0.6822 &0.0433 &0.085 &0.2122 &0.1094 &0.1273 &-0.2201 &0.0482 \\
-german-credit-data\_generation\_2.csv &0.6815 &0.5733 &0.0504 &0.0775 &0.1747 &0.0605 &0.0972 &0.2508 &0.0896 \\
-german-credit-data\_generation\_5.csv &0.8125 &0.5 &0.0 &0.0 &0.0 &0.0235 &0.0 &0.0 &0.0298 \\
-german-credit-data\_generation\_6\_sex.csv &0.742 &0.5013 &0.0013 &0.0022 &0.0147 &0.0725 &0.0125 &-0.005 &0.0907 \\
-german-credit-data\_generation\_7\_sex.csv &\textbf{\textcolor{red}{0.6691}} &\textbf{\textcolor{red}{0.5}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0186}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0289}} \\
-german-credit-data\_generation\_8\_sex.csv &0.7531 &0.6644 &0.0134 &0.0543 &0.1762 &0.0578 &0.1219 &-0.0417 &0.0936 \\
+Origins &0.721 &0.6017 &0.0453 &0.0345 &0.1831 &0.0585 &0.1487 &-0.0999 &0.0857 \\
+DGGAN &0.7128 &\textbf{\textcolor{red}{0.6822}} &0.0433 &0.085 &0.2122 &0.1094 &0.1273 &-0.2201 &0.0482 \\
+GAN2 &0.6815 &0.5733 &0.0504 &0.0775 &0.1747 &0.0605 &0.0972 &0.2508 &0.0896 \\
+CTGAN &\textbf{\textcolor{red}{0.8125}} &0.5 &0.0 &0.0 &0.0 &0.0235 &0.0 &0.0 &0.0298 \\
+TabFairGan &0.742 &0.5013 &0.0013 &0.0022 &0.0147 &0.0725 &0.0125 &-0.005 &0.0907 \\
+FixedTabFairGan &0.6691 &0.5 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0186}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0289}} \\
+FixedDGGAN &0.5972 &0.5936 &0.1155 &0.1315 &0.313 &0.0941 &0.1815 &-0.3392 &0.1014 \\
 \hline
 \end{tabular}
 \end{center}

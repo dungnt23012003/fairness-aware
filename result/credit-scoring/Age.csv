@@ -8,46 +8,46 @@
 \textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-credit-scoring.csv &0.9978 &0.9904 &0.081 &0.0038 &0.031 &0.0081 &0.0272 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0107}} \\
-credit-scoring\_generation.csv &0.8657 &0.5789 &0.0203 &0.0242 &0.2244 &0.0197 &0.2001 &6.7427 &0.0966 \\
-credit-scoring\_generation\_2.csv &0.9545 &0.7778 &0.055 &0.0051 &0.2447 &\textbf{\textcolor{red}{0.0071}} &0.2396 &0.1595 &0.0382 \\
-credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8393}} &0.6104 &0.0123 &0.0136 &0.0401 &0.0692 &0.0265 &0.4049 &0.0536 \\
-credit-scoring\_generation\_6\_Age.csv &0.9393 &0.6335 &0.0761 &0.0203 &0.238 &0.0509 &0.2177 &0.128 &0.0468 \\
-credit-scoring\_generation\_7\_Age.csv &0.929 &\textbf{\textcolor{red}{0.5003}} &\textbf{\textcolor{red}{-0.0002}} &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0009}} &0.0221 &\textbf{\textcolor{red}{0.0008}} &-0.0016 &0.0583 \\
-credit-scoring\_generation\_8\_Age.csv &0.9074 &0.6891 &0.0493 &0.0151 &0.1397 &0.0771 &0.1246 &-0.6568 &0.0528 \\
+Origins &\textbf{\textcolor{red}{0.9981}} &\textbf{\textcolor{red}{0.9905}} &0.0812 &0.0035 &0.0307 &0.0081 &0.0272 &0.0 &\textbf{\textcolor{red}{0.0106}} \\
+DGGAN &0.8593 &0.5593 &0.0168 &0.022 &0.2054 &0.0163 &0.1833 &6.8497 &0.0909 \\
+GAN2 &0.9497 &0.7723 &0.0528 &0.0073 &0.2126 &\textbf{\textcolor{red}{0.0054}} &0.2053 &0.1246 &0.0398 \\
+CTGAN &0.8316 &0.7654 &0.0545 &0.0138 &0.0825 &0.018 &0.0686 &0.1051 &0.0376 \\
+TabFairGan &0.9387 &0.6288 &0.0765 &0.0203 &0.2481 &0.0505 &0.2279 &0.1288 &0.0456 \\
+FixedTabFairGan &0.9291 &0.5 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0221 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0595 \\
+FixedDGGAN &0.7882 &0.7686 &0.2219 &0.179 &0.2976 &0.0489 &0.1187 &0.8672 &0.0437 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-credit-scoring.csv &0.9809 &0.9108 &0.0817 &\textbf{\textcolor{red}{0.0068}} &0.0861 &\textbf{\textcolor{red}{0.0155}} &0.0793 &\textbf{\textcolor{red}{0.0548}} &\textbf{\textcolor{red}{0.0267}} \\
-credit-scoring\_generation.csv &0.8594 &\textbf{\textcolor{red}{0.4948}} &0.0195 &0.0134 &0.219 &0.0168 &0.2056 &0.4769 &0.086 \\
-credit-scoring\_generation\_2.csv &0.9423 &0.6567 &0.0392 &0.0112 &0.151 &0.0222 &0.1398 &-0.105 &0.0608 \\
-credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8103}} &0.589 &0.024 &0.0209 &0.0823 &0.0539 &0.0615 &-0.0785 &0.0507 \\
-credit-scoring\_generation\_6\_Age.csv &0.931 &0.6204 &0.0682 &0.0245 &0.1822 &0.0623 &0.1577 &0.055 &0.0564 \\
-credit-scoring\_generation\_7\_Age.csv &0.924 &0.507 &0.0074 &0.0095 &\textbf{\textcolor{red}{0.0405}} &0.0217 &\textbf{\textcolor{red}{0.031}} &0.0631 &0.059 \\
-credit-scoring\_generation\_8\_Age.csv &0.8887 &0.559 &\textbf{\textcolor{red}{0.0047}} &0.0089 &0.0878 &0.0991 &0.0789 &-0.1781 &0.0603 \\
+Origins &\textbf{\textcolor{red}{0.9809}} &\textbf{\textcolor{red}{0.9108}} &0.0817 &\textbf{\textcolor{red}{0.0068}} &0.0861 &\textbf{\textcolor{red}{0.0155}} &0.0793 &\textbf{\textcolor{red}{0.0548}} &\textbf{\textcolor{red}{0.0267}} \\
+DGGAN &0.8594 &0.4948 &0.0195 &0.0134 &0.219 &0.0168 &0.2056 &0.4769 &0.086 \\
+GAN2 &0.9423 &0.6567 &0.0392 &0.0112 &0.151 &0.0222 &0.1398 &-0.105 &0.0608 \\
+CTGAN &0.8103 &0.589 &0.024 &0.0209 &0.0823 &0.0539 &0.0615 &-0.0785 &0.0507 \\
+TabFairGan &0.931 &0.6204 &0.0682 &0.0245 &0.1822 &0.0623 &0.1577 &0.055 &0.0564 \\
+FixedTabFairGan &0.924 &0.507 &\textbf{\textcolor{red}{0.0074}} &0.0095 &\textbf{\textcolor{red}{0.0405}} &0.0217 &\textbf{\textcolor{red}{0.031}} &0.0631 &0.059 \\
+FixedDGGAN &0.6293 &0.5913 &0.0856 &0.0288 &0.1046 &0.1103 &0.0758 &-0.367 &0.0328 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-credit-scoring.csv &0.9983 &0.9899 &0.0791 &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0257}} &\textbf{\textcolor{red}{0.008}} &\textbf{\textcolor{red}{0.0256}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0129}} \\
-credit-scoring\_generation.csv &\textbf{\textcolor{red}{0.8421}} &0.6009 &\textbf{\textcolor{red}{0.0474}} &0.0578 &0.2277 &0.014 &0.17 &9.0776 &0.0756 \\
-credit-scoring\_generation\_2.csv &0.9455 &0.773 &0.0673 &0.0229 &0.2222 &0.0109 &0.1993 &0.7248 &0.0953 \\
-credit-scoring\_generation\_5.csv &0.8707 &0.7971 &0.0831 &0.041 &0.1127 &0.0144 &0.0717 &0.306 &0.0387 \\
-credit-scoring\_generation\_6\_Age.csv &0.8891 &0.6285 &0.0939 &0.0513 &0.2184 &0.0593 &0.1671 &-0.2197 &0.061 \\
-credit-scoring\_generation\_7\_Age.csv &0.8534 &\textbf{\textcolor{red}{0.526}} &0.0535 &0.0514 &0.1224 &0.0207 &0.071 &0.4394 &0.0153 \\
-credit-scoring\_generation\_8\_Age.csv &0.8572 &0.6531 &0.1208 &0.0986 &0.2267 &0.0787 &0.1281 &0.5151 &0.064 \\
+Origins &\textbf{\textcolor{red}{0.9983}} &\textbf{\textcolor{red}{0.9899}} &0.0791 &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0257}} &\textbf{\textcolor{red}{0.008}} &\textbf{\textcolor{red}{0.0256}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0129}} \\
+DGGAN &0.8435 &0.6006 &0.0562 &0.0649 &0.2325 &0.0149 &0.1675 &9.0947 &0.0742 \\
+GAN2 &0.947 &0.7693 &0.0624 &0.0193 &0.2186 &0.0131 &0.1994 &0.6928 &0.0977 \\
+CTGAN &0.8708 &0.7963 &0.082 &0.0446 &0.0961 &0.0243 &0.0515 &0.2754 &0.0302 \\
+TabFairGan &0.8891 &0.6285 &0.09 &0.048 &0.2374 &0.0599 &0.1894 &-0.2502 &0.0807 \\
+FixedTabFairGan &0.855 &0.5243 &\textbf{\textcolor{red}{0.0471}} &0.044 &0.114 &0.02 &0.07 &0.3311 &0.0263 \\
+FixedDGGAN &0.7026 &0.6823 &0.1364 &0.0798 &0.1666 &0.102 &0.0868 &-0.1062 &0.04 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-credit-scoring.csv &0.9959 &0.9893 &0.0809 &0.0049 &0.0321 &\textbf{\textcolor{red}{0.0081}} &0.0272 &0.0 &\textbf{\textcolor{red}{0.0135}} \\
-credit-scoring\_generation.csv &0.9155 &0.5792 &0.0438 &0.0386 &0.3029 &0.0082 &0.2643 &2.5807 &0.1019 \\
-credit-scoring\_generation\_2.csv &0.958 &0.802 &0.0541 &0.0078 &0.2703 &0.0086 &0.2625 &0.3698 &0.0229 \\
-credit-scoring\_generation\_5.csv &\textbf{\textcolor{red}{0.8973}} &0.8083 &0.0708 &0.0175 &0.0992 &0.0185 &0.0817 &0.1921 &0.0355 \\
-credit-scoring\_generation\_6\_Age.csv &0.9399 &0.6338 &0.0806 &0.0242 &0.2503 &0.0502 &0.2261 &0.1731 &0.0451 \\
-credit-scoring\_generation\_7\_Age.csv &0.9291 &\textbf{\textcolor{red}{0.5}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0221 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0582 \\
-credit-scoring\_generation\_8\_Age.csv &0.9103 &0.6772 &0.0609 &0.0205 &0.1895 &0.0787 &0.1691 &-0.298 &0.0516 \\
+Origins &\textbf{\textcolor{red}{0.9959}} &\textbf{\textcolor{red}{0.9893}} &0.0809 &0.0049 &0.0321 &\textbf{\textcolor{red}{0.0081}} &0.0272 &0.0 &\textbf{\textcolor{red}{0.0135}} \\
+DGGAN &0.9155 &0.5792 &0.0438 &0.0386 &0.3029 &0.0082 &0.2643 &2.5807 &0.1019 \\
+GAN2 &0.958 &0.802 &0.0541 &0.0078 &0.2703 &0.0086 &0.2625 &0.3698 &0.0229 \\
+CTGAN &0.8973 &0.8083 &0.0708 &0.0175 &0.0992 &0.0185 &0.0817 &0.1921 &0.0355 \\
+TabFairGan &0.9399 &0.6338 &0.0806 &0.0242 &0.2503 &0.0502 &0.2261 &0.1731 &0.0451 \\
+FixedTabFairGan &0.9291 &0.5 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0221 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0582 \\
+FixedDGGAN &0.7714 &0.7483 &0.2726 &0.2514 &0.4207 &0.0284 &0.1694 &1.6216 &0.0362 \\
 \hline
 \end{tabular}
 \end{center}
