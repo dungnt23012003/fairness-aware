@@ -1,7 +1,7 @@
 import pandas as pd
 from tabfairgan import TFG
 from pathlib import Path
-
+import torch
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
@@ -164,10 +164,15 @@ if __name__ == '__main__':
     # df['Sex'] = [1 if v == 1 else 0 for v in df['Sex']]
     # df.to_csv(file_name, index=False)
     #
-    file_name = ROOT / 'data' / 'Generations' / 'german-credit-data_generation_6_age.csv'
-    df = pd.read_csv(file_name)
-    df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    df['sex'] = [1 if v == 'male' else 0 for v in df['sex']]
-    df.to_csv(file_name, index=False)
+    # file_name = ROOT / 'data' / 'Generations' / 'german-credit-data_generation_6_age.csv'
+    # df = pd.read_csv(file_name)
+    # df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+    # df['sex'] = [1 if v == 'male' else 0 for v in df['sex']]
+    # df.to_csv(file_name, index=False)
 
-
+    logits = torch.randn(10, 2)
+    print(logits)
+    a = torch.nn.functional.gumbel_softmax(logits, tau=0.1, hard=False)
+    print(a)
+    b = torch.nn.functional.gumbel_softmax(logits, tau=0.1, hard=True)
+    print(b)

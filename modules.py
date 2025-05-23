@@ -1,6 +1,7 @@
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
+from torch.nn.functional import gumbel_softmax
 
 
 class OlympicDataset(Dataset):
@@ -55,7 +56,8 @@ class FairLossFunc(torch.nn.Module):
 
     def forward(self, x, loss_scale):
         G = x[:, self._S_start_index:self._S_start_index + 2]
+        G = gumbel_softmax(G, tau=0.1, hard=False, dim=1)
         I = x[:, self._Y_start_index:self._Y_start_index + 2]
-        d_sp = loss_scale * abs(torch.mean(G[:, self._underpriv_index] * I[:, self._desire_index]) / (x[:, self._S_start_index + self._underpriv_index].sum()) - torch.mean(G[:, self._priv_index] * I[:, self._desire_index]) / (x[:, self._S_start_index + self._priv_index].sum()))
-
+        I = gumbel_softmax(I, tau=0.1, hard=False, dim=1)
+        d_sp = loss_scale * abs((G[:, self._underpriv_index] * I[:, self._desire_index]).sum() / G[:, self._underpriv_index].sum() - (G[:, self._priv_index] * I[:, self._desire_index]).sum() / G[:, self._priv_index].sum())
         return d_sp
