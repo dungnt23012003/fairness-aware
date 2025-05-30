@@ -51,7 +51,7 @@ python run_4.py --source 'german-credit-data.csv' --output 'german-credit-data_g
 
 
 
-python run.py --source 'credit-scoring.csv' --output 'credit-scoring_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'Age' 'INPS_mln_sum' 'Score_point' 'Number_of_credits' --categorical_columns 'Language' 'Sex' 'Marital' 'Has-Credit' 'Field' 'Month-of-birth' 'Day-of-birth' 'Region' 'Linked-cards' 'INPS-yes-no' 'Score-level' 'Score-class' 'Changed-phone-number' 'class-label'
+python run.py --source 'credit-scoring.csv' --output 'credit-scoring_generation.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns  'INPS_mln_sum' 'Score_point' 'Number_of_credits' --categorical_columns 'Age' 'Language' 'Sex' 'Marital' 'Has-Credit' 'Field' 'Month-of-birth' 'Day-of-birth' 'Region' 'Linked-cards' 'INPS-yes-no' 'Score-level' 'Score-class' 'Changed-phone-number' 'class-label'
 
 python run_2.py --source 'credit-scoring.csv' --output 'credit-scoring_generation_2.csv' --amount 1.0 --device 'cuda:0'  --epochs 50 --continuous_columns 'Age' 'INPS_mln_sum' 'Score_point' 'Number_of_credits' --categorical_columns 'Language' 'Sex' 'Marital' 'Has-Credit' 'Field' 'Month-of-birth' 'Day-of-birth' 'Region' 'Linked-cards' 'INPS-yes-no' 'Score-level' 'Score-class' 'Changed-phone-number' 'class-label'
 

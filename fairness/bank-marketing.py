@@ -79,7 +79,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
             num_fold += 1
             if m == 'MLP':
-                model = MLPClassifier()
+                model = MLPClassifier(hidden_layer_sizes=(128, 64))
             elif m == 'KNN':
                 model = KNeighborsClassifier(n_neighbors=5)
             elif m == 'DT':
@@ -89,8 +89,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             else:
                 model = LogisticRegression()
 
-
             model.fit(X_train_fold, y_train_fold)
+            print(m)
             y_predicts_fold = model.predict(X_test_fold)
             y_pred_probs_fold = model.predict_proba(X_test_fold)
 
@@ -179,7 +179,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_2.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_7_age.csv', 'bank-marketing_generation_8_age.csv']]
+    file_lists = [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_2.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_7_age.csv', 'bank-marketing_generation_8_age.csv', 'bank-marketing_generation_10_age.csv', 'bank-marketing_generation_9_age.csv', 'bank-marketing_generation_11_age.csv']]
 
     protected_attribute_list = ['age']
     majority_group_name_list = ['From 25 to 65']
@@ -223,7 +223,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'GAN2', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN']
+        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{Bank marketing dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")

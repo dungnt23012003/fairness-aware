@@ -79,7 +79,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
             num_fold += 1
             if m == 'MLP':
-                model = MLPClassifier()
+                model = MLPClassifier(hidden_layer_sizes=(128, 64))
             elif m == 'KNN':
                 model = KNeighborsClassifier(n_neighbors=5)
             elif m == 'DT':
@@ -89,8 +89,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             else:
                 model = LogisticRegression()
 
-
             model.fit(X_train_fold, y_train_fold)
+            print(m)
             y_predicts_fold = model.predict(X_test_fold)
             y_pred_probs_fold = model.predict_proba(X_test_fold)
 
@@ -179,8 +179,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_7_sex.csv', 'german-credit-data_generation_8_sex.csv'],
-                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_7_age.csv', 'german-credit-data_generation_8_age.csv']]
+    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_7_sex.csv', 'german-credit-data_generation_8_sex.csv', 'german-credit-data_generation_10_sex.csv', 'german-credit-data_generation_9_sex.csv', 'german-credit-data_generation_11_sex.csv'],
+                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_7_age.csv', 'german-credit-data_generation_8_age.csv', 'german-credit-data_generation_10_age.csv', 'german-credit-data_generation_9_age.csv', 'german-credit-data_generation_11_age.csv']]
 
     protected_attribute_list = ['sex', 'age']
     majority_group_name_list = ['Male', 'From 25 to 65']
@@ -224,7 +224,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'GAN2', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN']
+        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{German credit data dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")

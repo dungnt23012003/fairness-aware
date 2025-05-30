@@ -50,6 +50,11 @@ def run(
     df_category = df[categorical_columns].astype('category')
     cate_name, cate_class_number, cate_class, df_category_ohe = one_hot_encoding(df_category)
 
+    continuous_columns_dict = continuous_columns
+    categorical_columns_dict = {}
+    for name, num_value in zip(cate_name, cate_class_number):
+        categorical_columns_dict[name] = num_value
+
     # Combine data
     df_combine = pd.concat([df_conti_norm, df_category_ohe], axis=1)
 
@@ -83,7 +88,7 @@ def run(
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     disc = Discriminator(image_dim, ns_D).to(device)
-    gen = Generator(z_dim, image_dim, ns_G).to(device)
+    gen = Generator(z_dim, image_dim, ns_G, continuous_columns_dict, categorical_columns_dict).to(device)
     opt_disc = optim.Adam(disc.parameters(), lr=lr)
     opt_gen = optim.Adam(gen.parameters(), lr=lr)
     criterion = torch.nn.BCELoss()
@@ -98,10 +103,11 @@ def run(
         for batch_idx, real in enumerate(loader):
 
             real = real.view(-1, 1 * df_length).to(device)
-            batch_size = real.shape[0]
 
+            batch_size = real.shape[0]
             noise = torch.randn(batch_size, z_dim).to(device)
             fake = gen(noise)
+
             disc_real = disc(real).view(-1)
             lossD_real = criterion(disc_real, torch.ones_like(disc_real))
             disc_fake = disc(fake).view(-1)

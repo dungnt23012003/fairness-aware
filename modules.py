@@ -1,7 +1,59 @@
 import pandas as pd
 import torch
+from torch import nn
 from torch.utils.data import Dataset
-from torch.nn.functional import gumbel_softmax
+from torch.nn.functional import gumbel_softmax, leaky_relu
+
+
+class ClassifierMLP(nn.Module):
+    def __init__(self, input_dim, hidden_dims=(128, 64)):
+        super(ClassifierMLP, self).__init__()
+        self.mlp = torch.nn.Sequential(
+            torch.nn.Linear(input_dim, hidden_dims[0]),
+            torch.nn.ReLU(),
+            torch.nn.Linear(hidden_dims[0], hidden_dims[1]),
+            torch.nn.ReLU(),
+            torch.nn.Linear(hidden_dims[1], 1),
+            torch.nn.Sigmoid(),
+        )
+
+    def forward(self, x):
+        return self.mlp(x)
+
+    def train_model(self, train_loader, num_epochs=50, lr=0.001):
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(self.parameters(), lr=lr)
+
+        for epoch in range(num_epochs):
+            self.train()  # switch to training mode
+            total_loss = 0.0
+
+            for batch_X, batch_y in train_loader:
+                optimizer.zero_grad()
+                outputs = self(batch_X)
+                loss = criterion(outputs, batch_y)
+                loss.backward()
+                optimizer.step()
+                total_loss += loss.item()
+
+            avg_loss = total_loss / len(train_loader)
+            print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {avg_loss:.4f}")
+
+    def evaluate_model(self, test_loader):
+        self.eval()  # switch to evaluation mode
+        correct = 0
+        total = 0
+
+        with torch.no_grad():
+            for batch_X, batch_y in test_loader:
+                outputs = self(batch_X)
+                _, predicted = torch.max(outputs, 1)
+                total += batch_y.size(0)
+                correct += (predicted == batch_y).sum().item()
+
+        accuracy = correct / total
+        print(f"Test Accuracy: {accuracy * 100:.2f}%")
+        return accuracy
 
 
 class OlympicDataset(Dataset):
@@ -18,16 +70,31 @@ class OlympicDataset(Dataset):
 
 
 class Generator(torch.nn.Module):
-    def __init__(self, z_dim, img_dim, ns_G):
+    def __init__(self, z_dim, img_dim, ns_G, continuous_columns_dict, categorical_columns_dict):
         super().__init__()
-        self.gen = torch.nn.Sequential(
-            torch.nn.Linear(z_dim, 256),
-            torch.nn.LeakyReLU(ns_G),
-            torch.nn.Linear(256, img_dim),
-        )
+        self._input_dim = z_dim
+        self._output_dim = img_dim
+        self._ns_G = ns_G
+        self._discrete_columns = categorical_columns_dict
+        self._num_continuous_columns = len(continuous_columns_dict)
+
+        self.lin = nn.Linear(self._input_dim, self._output_dim)
+
+        self.lin_numerical = nn.Linear(self._output_dim, self._num_continuous_columns)
+
+        self.lin_cat = nn.ModuleDict()
+        for key, value in self._discrete_columns.items():
+            self.lin_cat[key] = nn.Linear(self._output_dim, value)
 
     def forward(self, x):
-        return self.gen(x)
+        x = leaky_relu(self.lin(x), negative_slope=self._ns_G)
+        x_numerical = leaky_relu(self.lin_numerical(x), negative_slope=self._ns_G)
+
+        x_cat = []
+        for key in self.lin_cat:
+            x_cat.append(gumbel_softmax(self.lin_cat[key](x), tau=0.2))
+        x_final = torch.cat((x_numerical, *x_cat), 1)
+        return x_final
 
 
 class Discriminator(torch.nn.Module):
