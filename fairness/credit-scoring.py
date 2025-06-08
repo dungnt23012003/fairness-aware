@@ -168,7 +168,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum_/num)
+                result_each_model.append((sum_ / num).__round__(4))
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -179,8 +179,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv', 'credit-scoring_generation_7_Sex.csv', 'credit-scoring_generation_8_Sex.csv', 'credit-scoring_generation_10_Sex.csv', 'credit-scoring_generation_9_Sex.csv', 'credit-scoring_generation_11_Sex.csv'],
-                  ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Age.csv', 'credit-scoring_generation_7_Age.csv', 'credit-scoring_generation_8_Age.csv', 'credit-scoring_generation_10_Age.csv', 'credit-scoring_generation_9_Age.csv', 'credit-scoring_generation_11_Age.csv']]
+    file_lists = [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv', 'credit-scoring_generation_10_Sex.csv', 'credit-scoring_generation_9_Sex.csv', 'credit-scoring_generation_12_Sex.csv'],
+                  ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Age.csv', 'credit-scoring_generation_10_Age.csv', 'credit-scoring_generation_9_Age.csv', 'credit-scoring_generation_12_Age.csv']]
 
     protected_attribute_list = ['Sex', 'Age']
     majority_group_name_list = ['Male', 'From 25 to 65']
@@ -225,7 +225,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
+        model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{Credit scoring dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
@@ -243,9 +243,9 @@ if __name__ == '__main__':
                 file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
-                        file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")
+                        file.write("&" + str(arr[gen][model][score]) + " ")
                     else:
-                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score].__round__(4)) + "}} ")
+                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
                 file.write("\\\\\n")
         file.write("\\hline\n")
         file.write("\\end{tabular}\n")

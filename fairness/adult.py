@@ -166,7 +166,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum_/num)
+                result_each_model.append((sum_ / num).__round__(4))
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -177,9 +177,9 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_7_gender.csv', 'adult_generation_8_gender.csv', 'adult_generation_10_gender.csv', 'adult_generation_9_gender.csv', 'adult_generation_11_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_7_race.csv', 'adult_generation_8_race.csv', 'adult_generation_10_race.csv', 'adult_generation_9_race.csv', 'adult_generation_11_race.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_7_age.csv', 'adult_generation_8_age.csv', 'adult_generation_10_age.csv', 'adult_generation_9_age.csv', 'adult_generation_11_age.csv']]
+    file_lists = [['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_10_gender.csv', 'adult_generation_9_gender.csv', 'adult_generation_12_gender.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_10_race.csv', 'adult_generation_9_race.csv', 'adult_generation_12_race.csv'],
+                  ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_10_age.csv', 'adult_generation_9_age.csv', 'adult_generation_12_age.csv']]
 
     protected_attribute_list = ['gender', 'race', 'age']
     majority_group_name_list = ['Male', 'White', 'From 25 to 65']
@@ -224,7 +224,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
+        model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{Adult dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
@@ -242,9 +242,9 @@ if __name__ == '__main__':
                 file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
-                        file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")
+                        file.write("&" + str(arr[gen][model][score]) + " ")
                     else:
-                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score].__round__(4)) + "}} ")
+                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
                 file.write("\\\\\n")
         file.write("\\hline\n")
         file.write("\\end{tabular}\n")

@@ -36,30 +36,64 @@ ROOT = FILE.parents[0]
 
 if __name__ == '__main__':
 
-    file_listss = [[['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_gender.csv', 'adult_generation_4_gender.csv'],
-                    ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv'],
-                    ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv']],
-                   [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_2.csv', 'bank-marketing_generation_3_age.csv', 'bank-marketing_generation_4_age.csv']],
-                   [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_SEX.csv','credit-card-clients_generation_4_SEX.csv'],
-                    ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_3_AGE.csv', 'credit-card-clients_generation_4_AGE.csv']],
-                   [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_sex.csv', 'german-credit-data_generation_4_sex.csv'],
-                    ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_3_age.csv','german-credit-data_generation_4_age.csv']],
-                   [['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Sex.csv', 'credit-scoring_generation_4_Sex.csv'],
-                    ['credit-scoring.csv', 'credit-scoring_generation.csv', 'credit-scoring_generation_2.csv', 'credit-scoring_generation_3_Age.csv', 'credit-scoring_generation_4_Age.csv']]
-                  ]
+    file_listss = [[['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_10_gender.csv', 'adult_generation_9_gender.csv', 'adult_generation_12_gender.csv'],
+                    ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_10_race.csv', 'adult_generation_9_race.csv', 'adult_generation_12_race.csv'],
+                    ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_10_age.csv', 'adult_generation_9_age.csv', 'adult_generation_12_age.csv']],
+                   [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_10_age.csv', 'bank-marketing_generation_9_age.csv', 'bank-marketing_generation_12_age.csv']],
+                   [['credit-card-clients.csv', 'credit-card-clients_generation.csv',
+                     'credit-card-clients_generation_5.csv',
+                     'credit-card-clients_generation_6_SEX.csv', 'credit-card-clients_generation_10_SEX.csv',
+                     'credit-card-clients_generation_9_SEX.csv',
+                     'credit-card-clients_generation_12_SEX.csv'],
+                    ['credit-card-clients.csv', 'credit-card-clients_generation.csv',
+                     'credit-card-clients_generation_5.csv',
+                     'credit-card-clients_generation_6_AGE.csv', 'credit-card-clients_generation_10_AGE.csv',
+                     'credit-card-clients_generation_9_AGE.csv',
+                     'credit-card-clients_generation_12_AGE.csv']],
+                   [['german-credit-data.csv', 'german-credit-data_generation.csv',
+                     'german-credit-data_generation_5.csv',
+                     'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_10_sex.csv',
+                     'german-credit-data_generation_9_sex.csv',
+                     'german-credit-data_generation_12_sex.csv'],
+                    ['german-credit-data.csv', 'german-credit-data_generation.csv',
+                     'german-credit-data_generation_5.csv',
+                     'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_10_age.csv',
+                     'german-credit-data_generation_9_age.csv',
+                     'german-credit-data_generation_12_age.csv']],
+                   [['credit-scoring.csv', 'credit-scoring_generation.csv',
+                     'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv',
+                     'credit-scoring_generation_10_Sex.csv', 'credit-scoring_generation_9_Sex.csv',
+                     'credit-scoring_generation_12_Sex.csv'],
+                    ['credit-scoring.csv', 'credit-scoring_generation.csv',
+                     'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Age.csv',
+                     'credit-scoring_generation_10_Age.csv', 'credit-scoring_generation_9_Age.csv',
+                     'credit-scoring_generation_12_Age.csv']],
+                   [['dutch-census.csv', 'dutch-census_generation.csv',
+                     'dutch-census_generation_5.csv', 'dutch-census_generation_6_sex.csv',
+                     'dutch-census_generation_10_sex.csv', 'dutch-census_generation_9_sex.csv',
+                     'dutch-census_generation_12_sex.csv']],
+                   [['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv',
+                     'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv'],
+                    ['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv',
+                     'PAKDD_generation_6_AGE.csv', 'PAKDD_generation_10_AGE.csv', 'PAKDD_generation_9_AGE.csv', 'PAKDD_generation_12_AGE.csv']]
+                 ]
 
     protected_attribute_lists = [['gender', 'race', 'age'],
                                  ['age'],
                                  ['SEX', 'AGE'],
                                  ['sex', 'age'],
-                                 ['Sex', 'Age']]
+                                 ['Sex', 'Age'],
+                                 ['sex'],
+                                 ['SEX', 'AGE']]
 
-    class_labels = ['class-label', 'class-label', 'class-label', 'class-label', 'class-label']
+    class_labels = ['class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label']
     p_Group_lists = [[0, 0, 0],
                      [0],
-                     [2, 0],
                      [0, 0],
-                     [2, 0]]
+                     [0, 0],
+                     [0, 0],
+                     [0],
+                     [0, 0]]
     file = open(ROOT / '..' / 'result' / 'SP.csv', 'w')
     result = []
 
@@ -72,8 +106,6 @@ if __name__ == '__main__':
                     df = pd.read_csv(ROOT / '..' / 'data' / 'Generations' / f, sep=",")
                 else:
                     df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / f, sep=",")
-
-                preprocessing_before_train(df, f)
 
                 le = preprocessing.LabelEncoder()
                 for i in df.columns:
@@ -106,23 +138,22 @@ if __name__ == '__main__':
                     min_position = gen
             arr_tmp[att][min_position] = 1
 
+    datasets = ['Adult\\_gender', 'Adult\\_race', 'Adult\\_age', 'Bank marketing\\_age', 'Credit card clients\\_SEX', 'Credit card client\\_AGE', 'German credit data\\_sex', 'German credit data\\_age', 'Credit scoring\\_Sex', 'Credit scoring\\_Age', 'Dutch census\\_sex', 'PAKDD\\_SEX', 'PAKDD\\_AGE']
     file.write("\\begin{table}[H]\n")
     file.write("\\begin{center}\n")
     file.write("\\caption{Statistical Parity Dataset}\n")
-    file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}\n")
+    file.write("\\begin{tabular}{c c c c c c c c c c c c}\n")
 
     file.write("\\hline\n")
-    file.write("\\textbf{Method}&\\multicolumn{3}{|c|}{\\textbf{Adult}}&\\textbf{Bank marketing}&\\multicolumn{2}{|c|}{\\textbf{Credit card clients}}&\\multicolumn{2}{|c|}{\\textbf{German credit data}}&\\multicolumn{2}{|c|}{\\textbf{Credit Scoring}} \\\\\n")
-    file.write("\\cline{2-11}\n")
-    file.write("\\textbf{} &gender &race &age &age &SEX &RACE &sex &race &Sex &Race \\\\\n")
+    file.write("\\textbf{Dataset} &\\textbf{Origin} &\\textbf{DGGAN} &\\textbf{CTGAN} &\\textbf{TabFairGan} &\\textbf{FixedTabFairGanNoSM} &\\textbf{TabFairGanEOd} &\\textbf{DGGanEOd} \\\\\n")
     file.write("\\hline\n")
-    for gen in range(np.shape(arr)[1]):
-        file.write("GAN")
-        for att in range(0, np.shape(arr)[0]):
+    for att in range(np.shape(arr)[0]):
+        file.write(f'{datasets[att]} ')
+        for gen in range(np.shape(arr)[1]):
             if arr_tmp[att][gen] == 0:
-                file.write("&" + str(arr[att][gen].__round__(4)) + " ")
+                file.write("&" + str(arr[att][gen]) + " ")
             else:
-                file.write("&\\textbf{\\textcolor{red}{" + str(arr[att][gen].__round__(4)) + "}} ")
+                file.write("&\\textbf{\\textcolor{red}{" + str(arr[att][gen]) + "}} ")
         file.write("\\\\\n")
     file.write("\\hline\n")
     file.write("\\end{tabular}\n")

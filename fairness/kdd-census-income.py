@@ -33,18 +33,13 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
 
-def load_adult(file, protected_attribute, class_label):
+def load_kdd_census_income(file, protected_attribute, class_label):
 
     print(file)
     if file.__contains__('generation'):
         df = pd.read_csv(ROOT / '..' / 'data' / 'Generations' / file, sep=",")
     else:
         df = pd.read_csv(ROOT / '..' / 'data' / 'Origins' / file, sep=",")
-
-    df['sex'] = [1 if v == 'Male' else 0 for v in df['gender']]
-    df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    df['race'] = [1 if v == 'White' else 0 for v in df['race']]
-    df['income'] = [1 if v == ">5OK" else 0 for v in df['income']]
 
     le = preprocessing.LabelEncoder()
     for i in df.columns:
@@ -79,11 +74,12 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
     # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
     for m in model_list:
         result_tmp = []
+        print(m)
         num_fold = 0
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
             num_fold += 1
             if m == 'MLP':
-                model = MLPClassifier()
+                model = MLPClassifier(hidden_layer_sizes=(128, 64))
             elif m == 'KNN':
                 model = KNeighborsClassifier(n_neighbors=5)
             elif m == 'DT':
@@ -102,37 +98,40 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             # print(protected_attribute)
 
             # print("Statistical parity dataset:")
-            Statistical_parity_dataset = calculate_performance_statistical_parity_dataset(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Statistical_parity_dataset = calculate_performance_statistical_parity_dataset(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Statistical_parity_dataset)
             result_fold.append(Statistical_parity_dataset)
 
             # print("Statistical parity:")
-            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Statistical_parity = calculate_performance_statistical_parity(X_test_fold.values, y_test_fold.values,
+                                                                          y_predicts_fold, sa_index, p_Group)
             # print(Statistical_parity)
-            result_fold.append(Statistical_parity)
+            result_fold.append(Statistical_parity['accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['balanced_accuracy'].__round__(4))
+            result_fold.append(Statistical_parity['fairness'].__round__(4))
 
             # print("Equal opportunity")
-            Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Equal_opportunity)
             result_fold.append(Equal_opportunity)
 
             # print("Equalized odds")
-            Equalized_odds = calculate_performance_equalized_odds(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Equalized_odds = calculate_performance_equalized_odds(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Equalized_odds)
             result_fold.append(Equalized_odds)
 
             # print("Predictive parity")
-            Predictive_parity = calculate_performance_predictive_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Predictive_parity = calculate_performance_predictive_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Predictive_parity)
             result_fold.append(Predictive_parity)
 
             # print("Predictive equality")
-            Predictive_equality = calculate_performance_predictive_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Predictive_equality = calculate_performance_predictive_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Predictive_equality)
             result_fold.append(Predictive_equality)
 
             # print("Treatment equality")
-            Treatment_equality = calculate_performance_treatment_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
+            Treatment_equality = calculate_performance_treatment_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
             # print(Treatment_equality)
             result_fold.append(Treatment_equality)
 
@@ -141,14 +140,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
+            filename = ""
             filename = ROOT / '..' / 'result' / 'kdd-census-income' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
-            # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
                                     majority_protected_attr_val=1, n_grid=10000,
                                     plot_slices=False, majority_group_name=majority_group_name,
                                     minority_group_name=minority_group_name,
-                                    file_name=filename).__round__(4)
+                                    file_name=filename)
 
             # print("ABROCA:", Abroca)
             result_fold.append(Abroca)
@@ -169,7 +168,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum_/num)
+                result_each_model.append(sum_ / num)
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -180,23 +179,24 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['kdd-census-income.csv', 'kdd-census-income_generation.csv', 'kdd-census-income_generation_2.csv', 'kdd-census-income_generation_3_gender.csv', 'kdd-census-income_generation_4_gender.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_race.csv', 'adult_generation_4_race.csv'],
-                  ['adult.csv', 'adult_generation.csv', 'adult_generation_2.csv', 'adult_generation_3_age.csv', 'adult_generation_4_age.csv']]
+    file_lists = [['kdd-census-income.csv', 'kdd-census-income_generation.csv', 'kdd-census-income_generation_2.csv', 'kdd-census-income_generation_5.csv',
+                   'kdd-census-income_generation_6_sex.csv', 'kdd-census-income_generation_11_sex.csv'],
+                  ['kdd-census-income.csv', 'kdd-census-income_generation.csv', 'kdd-census-income_generation_2.csv', 'kdd-census-income_generation_5.csv',
+                   'kdd-census-income_generation_6_race.csv', 'kdd-census-income_generation_11_race.csv'],
+                  ]
 
-    protected_attribute_list = ['sex', 'race', 'age']
-    majority_group_name_list = ['Male', 'White', 'From 25 to 65']
-    minority_group_name_list = ['Female', 'Non-White', 'Other']
-    class_label = 'income'
-    p_Group_list = [0, 0, 0]
+    protected_attribute_list = ['sex', 'race']
+    majority_group_name_list = ['Male', 'White']
+    minority_group_name_list = ['Female', 'Non-White']
+    class_label = 'class-label'
+    p_Group_list = [0, 0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'kdd-census-income' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
-        print(file_list)
         for f in file_list:
-            X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
+            X_train, X_test, y_train, y_test, sa_index = load_kdd_census_income(f, protected_attribute, class_label)
             test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
             result.append(test)
 
@@ -204,31 +204,45 @@ if __name__ == '__main__':
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
-                min_position = -1
-                for gen in range(np.shape(arr)[0]):
-                    if not math.isnan(arr[gen][model][score]):
-                        min_position = gen
-                        break
-                if min_position != -1:
+                if score == 1 or score == 2:
+                    max_position = -1
                     for gen in range(np.shape(arr)[0]):
-                        if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                        if not math.isnan(arr[gen][model][score]):
+                            max_position = gen
+                            break
+                    if max_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) >= abs(arr[max_position][model][score]):
+                                max_position = gen
+                        arr_tmp[max_position][model][score] = 1
+                else:
+                    min_position = -1
+                    for gen in range(np.shape(arr)[0]):
+                        if not math.isnan(arr[gen][model][score]):
                             min_position = gen
-                    arr_tmp[min_position][model][score] = 1
+                            break
+                    if min_position != -1:
+                        for gen in range(np.shape(arr)[0]):
+                            if abs(arr[gen][model][score]) <= abs(arr[min_position][model][score]):
+                                min_position = gen
+                        arr_tmp[min_position][model][score] = 1
 
+        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'DGGANChangeGen']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{adult\\_" + protected_attribute + "}\n")
-        file.write("\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n")
+        file.write("\\caption{Kdd census income dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\begin{tabular}{c c c c c c c c c c}\n")
+        file.write("\\hline\n")
+        file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
         model_list = ['MLP', 'KNN', 'DT', 'LR']
         # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
         for model in range(np.shape(arr)[1]):
             file.write("\\hline\n")
-            file.write("\\textbf{Method}&\\multicolumn{7}{|c|}{\\textbf{" + model_list[model] + "}} \\\\\n")
-            file.write("\\cline{2-8}\n")
-            file.write("\\textbf{} &SP &EO &EOdd &PP &PE &TE &ABROCA \\\\\n")
+            file.write("\\textbf{}&\\multicolumn{9}{c}{\\textbf{" + model_list[model] + "}} \\\\\n")
+            file.write("\\textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\\\\n")
             file.write("\\hline\n")
             for gen in range(np.shape(arr)[0]):
-                file.write(file_list[gen].replace("_", "\\_") + " ")
+                file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
                         file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")

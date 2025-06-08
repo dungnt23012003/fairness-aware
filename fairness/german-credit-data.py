@@ -98,7 +98,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             # print(protected_attribute)
 
             # print("Statistical parity dataset:")
-            Statistical_parity_dataset = calculate_performance_statistical_parity_dataset(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Statistical_parity_dataset = calculate_performance_statistical_parity_dataset(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Statistical_parity_dataset)
             result_fold.append(Statistical_parity_dataset)
 
@@ -111,27 +111,27 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             result_fold.append(Statistical_parity['fairness'].__round__(4))
 
             # print("Equal opportunity")
-            Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Equal_opportunity = calculate_performance_equal_opportunity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Equal_opportunity)
             result_fold.append(Equal_opportunity)
 
             # print("Equalized odds")
-            Equalized_odds = calculate_performance_equalized_odds(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Equalized_odds = calculate_performance_equalized_odds(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Equalized_odds)
             result_fold.append(Equalized_odds)
 
             # print("Predictive parity")
-            Predictive_parity = calculate_performance_predictive_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Predictive_parity = calculate_performance_predictive_parity(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Predictive_parity)
             result_fold.append(Predictive_parity)
 
             # print("Predictive equality")
-            Predictive_equality = calculate_performance_predictive_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Predictive_equality = calculate_performance_predictive_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Predictive_equality)
             result_fold.append(Predictive_equality)
 
             # print("Treatment equality")
-            Treatment_equality = calculate_performance_treatment_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness']
+            Treatment_equality = calculate_performance_treatment_equality(X_test_fold.values, y_test_fold.values, y_predicts_fold, sa_index, p_Group)['fairness'].__round__(4)
             # print(Treatment_equality)
             result_fold.append(Treatment_equality)
 
@@ -147,7 +147,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                                     majority_protected_attr_val=1, n_grid=10000,
                                     plot_slices=False, majority_group_name=majority_group_name,
                                     minority_group_name=minority_group_name,
-                                    file_name=filename)
+                                    file_name=filename).__round__(4)
 
             # print("ABROCA:", Abroca)
             result_fold.append(Abroca)
@@ -168,7 +168,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum_ / num)
+                result_each_model.append((sum_ / num).__round__(4))
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -179,8 +179,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_7_sex.csv', 'german-credit-data_generation_8_sex.csv', 'german-credit-data_generation_10_sex.csv', 'german-credit-data_generation_9_sex.csv', 'german-credit-data_generation_11_sex.csv'],
-                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_2.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_7_age.csv', 'german-credit-data_generation_8_age.csv', 'german-credit-data_generation_10_age.csv', 'german-credit-data_generation_9_age.csv', 'german-credit-data_generation_11_age.csv']]
+    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_10_sex.csv', 'german-credit-data_generation_9_sex.csv', 'german-credit-data_generation_12_sex.csv'],
+                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_10_age.csv', 'german-credit-data_generation_9_age.csv', 'german-credit-data_generation_12_age.csv']]
 
     protected_attribute_list = ['sex', 'age']
     majority_group_name_list = ['Male', 'From 25 to 65']
@@ -224,7 +224,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
+        model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{German credit data dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
@@ -242,9 +242,9 @@ if __name__ == '__main__':
                 file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
-                        file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")
+                        file.write("&" + str(arr[gen][model][score]) + " ")
                     else:
-                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score].__round__(4)) + "}} ")
+                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
                 file.write("\\\\\n")
         file.write("\\hline\n")
         file.write("\\end{tabular}\n")

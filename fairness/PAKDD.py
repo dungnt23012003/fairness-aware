@@ -33,7 +33,7 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
 
-def load_adult(file, protected_attribute, class_label):
+def load_PAKDD(file, protected_attribute, class_label):
 
     print(file)
     if file.__contains__('generation'):
@@ -79,7 +79,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
         for X_train_fold, X_test_fold, y_train_fold, y_test_fold in zip(X_train, X_test, y_train, y_test):
             num_fold += 1
             if m == 'MLP':
-                model = MLPClassifier(hidden_layer_sizes=(128, 64))
+                model = MLPClassifier(hidden_layer_sizes=(128, 64), batch_size=32)
             elif m == 'KNN':
                 model = KNeighborsClassifier(n_neighbors=5)
             elif m == 'DT':
@@ -140,7 +140,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = ROOT / '..' / 'result' / 'bank-marketing' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
+            filename = ROOT / '..' / 'result' / 'PAKDD' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
@@ -179,20 +179,21 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_10_age.csv', 'bank-marketing_generation_9_age.csv', 'bank-marketing_generation_12_age.csv']]
+    file_lists = [['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv', 'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv'],
+                  ['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv', 'PAKDD_generation_6_AGE.csv', 'PAKDD_generation_10_AGE.csv', 'PAKDD_generation_9_AGE.csv', 'PAKDD_generation_12_AGE.csv']]
 
-    protected_attribute_list = ['age']
-    majority_group_name_list = ['From 25 to 65']
-    minority_group_name_list = ['Other']
+    protected_attribute_list = ['SEX', 'AGE']
+    majority_group_name_list = ['Male', 'From 25 to 65']
+    minority_group_name_list = ['Female', 'Other']
     class_label = 'class-label'
-    p_Group_list = [0]
+    p_Group_list = [0, 0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
-        file = open(ROOT / '..' / 'result' / 'bank-marketing' / f'{protected_attribute}.csv', 'w')
+        file = open(ROOT / '..' / 'result' / 'PAKDD' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
         for f in file_list:
-            X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
+            X_train, X_test, y_train, y_test, sa_index = load_PAKDD(f, protected_attribute, class_label)
             test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
             result.append(test)
 
@@ -226,7 +227,7 @@ if __name__ == '__main__':
         model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{Bank marketing dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\caption{PAKDD dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
         file.write("\\begin{tabular}{c c c c c c c c c c}\n")
         file.write("\\hline\n")
         file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")

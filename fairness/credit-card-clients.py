@@ -155,7 +155,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
         arr = np.array(result_tmp)
         result_each_model = []
         for j in range(np.shape(arr)[1]):
-            sum = 0
+            sum_ = 0
             num_nan = 0
             num = 0
             num_inf = 0
@@ -165,10 +165,10 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                 elif math.isinf(arr[i][j]):
                     num_inf = num_inf + 1
                 else:
-                    sum = sum + arr[i][j]
+                    sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
-                result_each_model.append(sum/num)
+                result_each_model.append((sum_ / num).__round__(4))
             elif num_inf > num_nan:
                 result_each_model.append(math.inf)
             else:
@@ -179,8 +179,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_SEX.csv', 'credit-card-clients_generation_7_SEX.csv', 'credit-card-clients_generation_8_SEX.csv', 'credit-card-clients_generation_10_SEX.csv', 'credit-card-clients_generation_9_SEX.csv', 'credit-card-clients_generation_11_SEX.csv'],
-                  ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_2.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_AGE.csv', 'credit-card-clients_generation_7_AGE.csv', 'credit-card-clients_generation_8_AGE.csv', 'credit-card-clients_generation_10_AGE.csv', 'credit-card-clients_generation_9_AGE.csv', 'credit-card-clients_generation_11_AGE.csv']]
+    file_lists = [['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_SEX.csv', 'credit-card-clients_generation_10_SEX.csv', 'credit-card-clients_generation_9_SEX.csv', 'credit-card-clients_generation_12_SEX.csv'],
+                  ['credit-card-clients.csv', 'credit-card-clients_generation.csv', 'credit-card-clients_generation_5.csv', 'credit-card-clients_generation_6_AGE.csv', 'credit-card-clients_generation_10_AGE.csv', 'credit-card-clients_generation_9_AGE.csv', 'credit-card-clients_generation_12_AGE.csv']]
 
     protected_attribute_list = ['SEX', 'AGE']
     majority_group_name_list = ['Male', 'From 25 to 65']
@@ -224,7 +224,7 @@ if __name__ == '__main__':
                                 min_position = gen
                         arr_tmp[min_position][model][score] = 1
 
-        model_gen_list = ['Origins', 'DGGAN', 'DGGANRemove', 'CTGAN', 'TabFairGan', 'FixedTabFairGan', 'FixedDGGAN', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGANChangeGen']
+        model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
         file.write("\\caption{Credit card clients dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
@@ -242,9 +242,9 @@ if __name__ == '__main__':
                 file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
-                        file.write("&" + str(arr[gen][model][score].__round__(4)) + " ")
+                        file.write("&" + str(arr[gen][model][score]) + " ")
                     else:
-                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score].__round__(4)) + "}} ")
+                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
                 file.write("\\\\\n")
         file.write("\\hline\n")
         file.write("\\end{tabular}\n")

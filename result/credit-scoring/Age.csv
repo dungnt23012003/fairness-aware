@@ -8,58 +8,46 @@
 \textbf{}&\multicolumn{9}{c}{\textbf{MLP}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-Origins &\textbf{\textcolor{red}{0.9978}} &\textbf{\textcolor{red}{0.9897}} &0.0812 &0.0036 &0.0292 &0.008 &0.0256 &0.0 &\textbf{\textcolor{red}{0.0087}} \\
-DGGAN &0.9352 &0.7971 &0.0635 &0.0194 &0.2265 &0.0145 &0.2071 &-5.7855 &0.0759 \\
-DGGANRemove &0.9455 &0.7626 &0.0503 &0.0053 &0.2209 &\textbf{\textcolor{red}{0.0052}} &0.2156 &0.1152 &0.057 \\
-CTGAN &0.9075 &0.8205 &0.0557 &0.0153 &0.0569 &0.0231 &0.0416 &0.0247 &0.0362 \\
-TabFairGan &0.9276 &0.6229 &0.08 &0.0366 &0.2001 &0.0618 &0.1634 &0.1214 &0.0907 \\
-FixedTabFairGan &0.9264 &0.5008 &\textbf{\textcolor{red}{-0.0005}} &\textbf{\textcolor{red}{0.0023}} &\textbf{\textcolor{red}{0.0078}} &0.0222 &\textbf{\textcolor{red}{0.0054}} &-0.0147 &0.0661 \\
-FixedDGGAN &0.9408 &0.709 &0.039 &0.0308 &0.096 &0.0258 &0.0652 &-0.5091 &0.0711 \\
-FixedTabFairGanNoSM &0.9344 &0.5129 &0.0169 &0.0171 &0.0645 &0.0336 &0.0474 &0.1258 &0.0812 \\
-TabFairGanEOd &0.9015 &0.6257 &0.0713 &0.0521 &0.19 &0.0669 &0.1379 &0.2318 &0.0607 \\
-DGGANChangeGen &0.9685 &0.5971 &0.0331 &0.029 &0.1702 &0.0057 &0.134 &\textbf{\textcolor{red}{0.0}} &0.2394 \\
+Origins &\textbf{\textcolor{red}{0.9976}} &\textbf{\textcolor{red}{0.9883}} &0.0815 &\textbf{\textcolor{red}{0.0036}} &0.033 &\textbf{\textcolor{red}{0.0083}} &0.0294 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0094}} \\
+DGGAN &0.9374 &0.8022 &0.0657 &0.0226 &0.2163 &0.0124 &0.1937 &1.4778 &0.0802 \\
+CTGAN &0.906 &0.8567 &0.0689 &0.0263 &0.08 &0.0194 &0.0536 &0.1258 &0.0316 \\
+TabFairGan &0.9279 &0.6409 &0.0942 &0.0489 &0.2148 &0.0587 &0.1658 &0.2479 &0.0791 \\
+FixedTabFairGanNoSM &0.9359 &0.5141 &\textbf{\textcolor{red}{0.0045}} &0.0063 &\textbf{\textcolor{red}{0.024}} &0.0346 &\textbf{\textcolor{red}{0.0176}} &0.0076 &0.097 \\
+TabFairGanEOd &0.8991 &0.6319 &0.0852 &0.0603 &0.1789 &0.0604 &0.1186 &0.3533 &0.0866 \\
+DGGanEOd &0.8922 &0.5752 &0.0877 &0.0897 &0.125 &0.0453 &0.0354 &-7.4313 &0.0858 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{KNN}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-Origins &\textbf{\textcolor{red}{0.9809}} &\textbf{\textcolor{red}{0.9108}} &0.0817 &0.0068 &0.0861 &0.0155 &0.0793 &0.0548 &\textbf{\textcolor{red}{0.0267}} \\
+Origins &\textbf{\textcolor{red}{0.9809}} &\textbf{\textcolor{red}{0.9108}} &0.0817 &0.0068 &0.0861 &\textbf{\textcolor{red}{0.0155}} &0.0793 &0.0548 &\textbf{\textcolor{red}{0.0267}} \\
 DGGAN &0.9626 &0.6007 &0.0138 &\textbf{\textcolor{red}{0.0029}} &0.108 &0.0391 &0.1051 &-0.5832 &0.1151 \\
-DGGANRemove &0.9423 &0.6567 &0.0392 &0.0112 &0.151 &0.0222 &0.1398 &-0.105 &0.0608 \\
 CTGAN &0.8103 &0.589 &0.024 &0.0209 &0.0823 &0.0539 &0.0615 &-0.0785 &0.0507 \\
 TabFairGan &0.931 &0.6204 &0.0682 &0.0245 &0.1822 &0.0623 &0.1577 &0.055 &0.0564 \\
-FixedTabFairGan &0.924 &0.507 &0.0074 &0.0095 &0.0405 &0.0217 &0.031 &0.0631 &0.059 \\
-FixedDGGAN &0.9348 &0.5647 &0.009 &0.0078 &0.0885 &0.0312 &0.0807 &-0.931 &0.0469 \\
-FixedTabFairGanNoSM &0.9342 &0.5097 &\textbf{\textcolor{red}{0.0069}} &0.0082 &\textbf{\textcolor{red}{0.0237}} &0.0337 &\textbf{\textcolor{red}{0.0154}} &0.0139 &0.0292 \\
+FixedTabFairGanNoSM &0.9342 &0.5097 &\textbf{\textcolor{red}{0.0069}} &0.0082 &0.0237 &0.0337 &0.0154 &0.0139 &0.0292 \\
 TabFairGanEOd &0.9029 &0.5874 &0.0471 &0.0412 &0.1106 &0.0765 &0.0694 &0.113 &0.0479 \\
-DGGANChangeGen &0.973 &0.5772 &0.0288 &0.0242 &0.0928 &\textbf{\textcolor{red}{0.0055}} &0.0625 &\textbf{\textcolor{red}{0.0}} &0.077 \\
+DGGanEOd &0.9273 &0.5116 &0.0126 &0.0125 &\textbf{\textcolor{red}{0.0198}} &0.0619 &\textbf{\textcolor{red}{0.0073}} &\textbf{\textcolor{red}{-0.0103}} &0.0647 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{DT}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-Origins &\textbf{\textcolor{red}{0.9983}} &\textbf{\textcolor{red}{0.9899}} &0.0791 &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0257}} &0.008 &\textbf{\textcolor{red}{0.0256}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0129}} \\
-DGGAN &0.9419 &0.7523 &0.0495 &0.0217 &0.1819 &0.027 &0.1603 &-1.5076 &0.0831 \\
-DGGANRemove &0.9468 &0.7781 &0.0645 &0.0214 &0.182 &0.0105 &0.1607 &0.6504 &0.0802 \\
-CTGAN &0.8697 &0.7957 &0.0869 &0.0459 &0.0997 &0.022 &0.0538 &0.3719 &0.0324 \\
-TabFairGan &0.8856 &0.6174 &0.0911 &0.0476 &0.2323 &0.0585 &0.1847 &-0.2461 &0.0714 \\
-FixedTabFairGan &0.8543 &0.5239 &0.0476 &0.046 &0.1156 &0.022 &0.0696 &0.3303 &0.0225 \\
-FixedDGGAN &0.9438 &0.7011 &0.0576 &0.0389 &0.2364 &0.0143 &0.1976 &1.9237 &0.0878 \\
-FixedTabFairGanNoSM &0.8845 &0.54 &0.0602 &0.059 &0.1403 &0.0319 &0.0814 &0.3696 &0.0327 \\
-TabFairGanEOd &0.866 &0.6391 &0.0914 &0.0708 &0.1374 &0.0639 &0.0666 &0.039 &0.0352 \\
-DGGANChangeGen &0.9657 &0.6067 &\textbf{\textcolor{red}{0.0383}} &0.0341 &0.2028 &\textbf{\textcolor{red}{0.0042}} &0.1607 &-0.1032 &0.1014 \\
+Origins &\textbf{\textcolor{red}{0.9983}} &\textbf{\textcolor{red}{0.9899}} &0.0791 &\textbf{\textcolor{red}{0.0001}} &\textbf{\textcolor{red}{0.0257}} &\textbf{\textcolor{red}{0.008}} &\textbf{\textcolor{red}{0.0256}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0129}} \\
+DGGAN &0.9561 &0.7559 &\textbf{\textcolor{red}{0.0481}} &0.0176 &0.1639 &0.0238 &0.1463 &-0.1201 &0.0753 \\
+CTGAN &0.8711 &0.7988 &0.0842 &0.0437 &0.1056 &0.0171 &0.0619 &0.3825 &0.0354 \\
+TabFairGan &0.8874 &0.6233 &0.1017 &0.0516 &0.2768 &0.0511 &0.2252 &-0.1071 &0.0884 \\
+FixedTabFairGanNoSM &0.8814 &0.5375 &0.0628 &0.0611 &0.1497 &0.0313 &0.0887 &0.423 &0.0356 \\
+TabFairGanEOd &0.8664 &0.6388 &0.0913 &0.071 &0.1318 &0.064 &0.0608 &0.0371 &0.0338 \\
+DGGanEOd &0.8456 &0.5659 &0.0877 &0.0872 &0.1298 &0.041 &0.0426 &-0.9349 &0.0353 \\
 \hline
 \textbf{}&\multicolumn{9}{c}{\textbf{LR}} \\
 \textbf{} &Acc &BA &SP &EO &EOd &PP &PE &TE &ABROCA \\
 \hline
-Origins &\textbf{\textcolor{red}{0.9959}} &\textbf{\textcolor{red}{0.9893}} &0.0809 &0.0049 &0.0321 &0.0081 &0.0272 &0.0 &\textbf{\textcolor{red}{0.0135}} \\
+Origins &\textbf{\textcolor{red}{0.9959}} &\textbf{\textcolor{red}{0.9893}} &0.0809 &0.0049 &0.0321 &\textbf{\textcolor{red}{0.0081}} &0.0272 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0135}} \\
 DGGAN &0.9789 &0.8005 &0.0655 &0.0213 &0.3074 &0.0171 &0.2861 &-0.3889 &0.058 \\
-DGGANRemove &0.958 &0.802 &0.0541 &0.0078 &0.2703 &0.0086 &0.2625 &0.3698 &0.0229 \\
 CTGAN &0.8973 &0.8083 &0.0708 &0.0175 &0.0992 &0.0185 &0.0817 &0.1921 &0.0355 \\
 TabFairGan &0.9399 &0.6338 &0.0806 &0.0242 &0.2503 &0.0502 &0.2261 &0.1731 &0.0451 \\
-FixedTabFairGan &0.9291 &0.5 &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.0221 &0.0 &0.0 &0.0582 \\
-FixedDGGAN &0.9526 &0.6484 &0.0542 &0.0382 &0.2092 &0.0184 &0.1711 &0.5275 &0.0723 \\
-FixedTabFairGanNoSM &0.94 &0.504 &0.0038 &0.0033 &0.0176 &0.0326 &0.0143 &0.0221 &0.0448 \\
+FixedTabFairGanNoSM &0.94 &0.504 &\textbf{\textcolor{red}{0.0038}} &\textbf{\textcolor{red}{0.0033}} &\textbf{\textcolor{red}{0.0176}} &0.0326 &\textbf{\textcolor{red}{0.0143}} &0.0221 &0.0448 \\
 TabFairGanEOd &0.9172 &0.604 &0.0629 &0.0345 &0.1614 &0.0594 &0.1269 &0.2132 &0.0657 \\
-DGGANChangeGen &0.9816 &0.5926 &0.0229 &0.0179 &0.0224 &\textbf{\textcolor{red}{0.0054}} &\textbf{\textcolor{red}{0.0}} &\textbf{\textcolor{red}{0.0}} &0.175 \\
+DGGanEOd &0.9202 &0.5371 &0.0585 &0.0526 &0.0831 &0.0547 &0.0305 &0.2043 &0.1148 \\
 \hline
 \end{tabular}
 \end{center}

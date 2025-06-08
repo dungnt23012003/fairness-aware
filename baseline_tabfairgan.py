@@ -174,18 +174,31 @@ if __name__ == '__main__':
     # df['sex'] = [1 if v == 'male' else 0 for v in df['sex']]
     # df.to_csv(file_name, index=False)
 
-    file_name = ROOT / 'data' / 'Origins' / 'kdd-census-income.csv'
-    df = pd.read_csv(file_name)
-    # df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
-    # df['sex'] = [1 if v == 'Male' else 0 for v in df['sex']]
-    # df['race'] = [1 if v == 'White' else 0 for v in df['race']]
-
-    df.to_csv(file_name, index=False)
-
-    # file_name = ROOT / 'data' / 'Origins' / 'PAKDD.csv'
+    # file_name = ROOT / 'data' / 'Origins' / 'kdd-census-income.csv'
     # df = pd.read_csv(file_name)
-    # df['AGE'] = [1 if 25 <= v <= 65 else 0 for v in df['AGE']]
-    # df['SEX'] = [1 if v == 'M' else 0 for v in df['SEX']]
+    # # df['age'] = [1 if 25 <= v <= 65 else 0 for v in df['age']]
+    # # df['sex'] = [1 if v == 'Male' else 0 for v in df['sex']]
+    # # df['race'] = [1 if v == 'White' else 0 for v in df['race']]
+    #
     # df.to_csv(file_name, index=False)
+
+    file_name = ROOT / 'data' / 'Origins' / 'PAKDD.csv'
+    df = pd.read_csv(file_name)
+    list_columns = ['PAYMENT-DAY', 'QUANT-ADDITIONAL-CARDS',
+       'POSTAL-ADDRESS-TYPE', 'SEX', 'MARITAL-STATUS', 'QUANT-DEPENDANTS',
+       'EDUCATION-LEVEL',
+       'FLAG-RESIDENCIAL-PHONE', 'RESIDENCE-TYPE', 'MONTHS-IN-RESIDENCE',
+       'FLAG-MOBILE-PHONE', 'FLAG-EMAIL', 'PERSONAL-MONTHLY-INCOME',
+       'OTHER-INCOMES', 'FLAG-VISA', 'FLAG-MASTERCARD', 'FLAG-DINERS',
+       'FLAG-AMERICAN-EXPRESS', 'FLAG-OTHER-CARDS', 'QUANT-BANKING-ACCOUNTS',
+       'QUANT-SPECIAL-BANKING-ACCOUNTS', 'PERSONAL-ASSETS-VALUE', 'QUANT-CARS',
+       'COMPANY', 'FLAG-PROFESSIONAL-PHONE', 'MONTHS-IN-THE-JOB',
+       'OCCUPATION-TYPE', 'FLAG-HOME-ADDRESS-DOCUMENT',
+       'FLAG-RG', 'FLAG-CPF', 'FLAG-INCOME-PROOF', 'PRODUCT',
+       'FLAG-ACSP-RECORD', 'AGE', 'class-label']
+
+    print(list_columns)
+    df = df[list_columns]
+    df.to_csv(file_name, index=False)
 
 

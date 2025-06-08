@@ -33,7 +33,7 @@ FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]
 
 
-def load_adult(file, protected_attribute, class_label):
+def load_dutch_census(file, protected_attribute, class_label):
 
     print(file)
     if file.__contains__('generation'):
@@ -140,8 +140,8 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = ROOT / '..' / 'result' / 'bank-marketing' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
-            # Compute Abroca
+            filename = ""
+            filename = ROOT / '..' / 'result' / 'dutch-census' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
                                     majority_protected_attr_val=1, n_grid=10000,
@@ -179,20 +179,20 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_10_age.csv', 'bank-marketing_generation_9_age.csv', 'bank-marketing_generation_12_age.csv']]
+    file_lists = [['dutch-census.csv', 'dutch-census_generation.csv', 'dutch-census_generation_5.csv', 'dutch-census_generation_6_sex.csv', 'dutch-census_generation_10_sex.csv', 'dutch-census_generation_9_sex.csv', 'dutch-census_generation_12_sex.csv']]
 
-    protected_attribute_list = ['age']
-    majority_group_name_list = ['From 25 to 65']
-    minority_group_name_list = ['Other']
+    protected_attribute_list = ['sex']
+    majority_group_name_list = ['Male']
+    minority_group_name_list = ['Female']
     class_label = 'class-label'
     p_Group_list = [0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
-        file = open(ROOT / '..' / 'result' / 'bank-marketing' / f'{protected_attribute}.csv', 'w')
+        file = open(ROOT / '..' / 'result' / 'dutch-census' / f'{protected_attribute}.csv', 'w')
         result = []
         print(protected_attribute)
         for f in file_list:
-            X_train, X_test, y_train, y_test, sa_index = load_adult(f, protected_attribute, class_label)
+            X_train, X_test, y_train, y_test, sa_index = load_dutch_census(f, protected_attribute, class_label)
             test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
             result.append(test)
 
@@ -226,7 +226,7 @@ if __name__ == '__main__':
         model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
         file.write("\\begin{table}[H]\n")
         file.write("\\begin{center}\n")
-        file.write("\\caption{Bank marketing dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\caption{Dutch census dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
         file.write("\\begin{tabular}{c c c c c c c c c c}\n")
         file.write("\\hline\n")
         file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
