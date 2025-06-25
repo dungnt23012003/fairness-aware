@@ -140,12 +140,26 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = ""
-            filename = ROOT / '..' / 'result' / 'german-credit-data' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
+            if f.__contains__('generation_12'):
+                filename_abroca = 'DGGANEOd'
+            elif f.__contains__('generation_9'):
+                filename_abroca = 'TabFairGanEOd'
+            elif f.__contains__('generation_10'):
+                filename_abroca = 'FixedTabFairGanNoSM'
+            elif f.__contains__('generation_6'):
+                filename_abroca = 'TabFairGan'
+            elif f.__contains__('generation_5'):
+                filename_abroca = 'CTGAN'
+            elif f.__contains__('generation'):
+                filename_abroca = 'DGGAN'
+            else:
+                filename_abroca = 'Origin'
+
+            filename = ROOT / '..' / 'result' / 'german-credit-data' / 'ABROCA' / f'german-credit-data_{filename_abroca}_{protected_attribute}_{m}_{num_fold}.png'
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
                                     majority_protected_attr_val=1, n_grid=10000,
-                                    plot_slices=False, majority_group_name=majority_group_name,
+                                    plot_slices=True, majority_group_name=majority_group_name,
                                     minority_group_name=minority_group_name,
                                     file_name=filename).__round__(4)
 
@@ -179,14 +193,13 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_10_sex.csv', 'german-credit-data_generation_9_sex.csv', 'german-credit-data_generation_12_sex.csv'],
-                  ['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_10_age.csv', 'german-credit-data_generation_9_age.csv', 'german-credit-data_generation_12_age.csv']]
+    file_lists = [['german-credit-data.csv', 'german-credit-data_generation.csv', 'german-credit-data_generation_5.csv', 'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_10_sex.csv', 'german-credit-data_generation_9_sex.csv', 'german-credit-data_generation_12_sex.csv']]
 
-    protected_attribute_list = ['sex', 'age']
-    majority_group_name_list = ['Male', 'From 25 to 65']
-    minority_group_name_list = ['Female', 'Other']
+    protected_attribute_list = ['sex']
+    majority_group_name_list = ['Male']
+    minority_group_name_list = ['Female']
     class_label = 'class-label'
-    p_Group_list = [0, 0]
+    p_Group_list = [0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'german-credit-data' / f'{protected_attribute}.csv', 'w')

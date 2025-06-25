@@ -37,9 +37,7 @@ ROOT = FILE.parents[0]
 if __name__ == '__main__':
 
     file_listss = [[['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_gender.csv', 'adult_generation_10_gender.csv', 'adult_generation_9_gender.csv', 'adult_generation_12_gender.csv'],
-                    ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_10_race.csv', 'adult_generation_9_race.csv', 'adult_generation_12_race.csv'],
-                    ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_age.csv', 'adult_generation_10_age.csv', 'adult_generation_9_age.csv', 'adult_generation_12_age.csv']],
-                   [['bank-marketing.csv', 'bank-marketing_generation.csv', 'bank-marketing_generation_5.csv', 'bank-marketing_generation_6_age.csv', 'bank-marketing_generation_10_age.csv', 'bank-marketing_generation_9_age.csv', 'bank-marketing_generation_12_age.csv']],
+                    ['adult.csv', 'adult_generation.csv', 'adult_generation_5.csv', 'adult_generation_6_race.csv', 'adult_generation_10_race.csv', 'adult_generation_9_race.csv', 'adult_generation_12_race.csv']],
                    [['credit-card-clients.csv', 'credit-card-clients_generation.csv',
                      'credit-card-clients_generation_5.csv',
                      'credit-card-clients_generation_6_SEX.csv', 'credit-card-clients_generation_10_SEX.csv',
@@ -54,12 +52,8 @@ if __name__ == '__main__':
                      'german-credit-data_generation_5.csv',
                      'german-credit-data_generation_6_sex.csv', 'german-credit-data_generation_10_sex.csv',
                      'german-credit-data_generation_9_sex.csv',
-                     'german-credit-data_generation_12_sex.csv'],
-                    ['german-credit-data.csv', 'german-credit-data_generation.csv',
-                     'german-credit-data_generation_5.csv',
-                     'german-credit-data_generation_6_age.csv', 'german-credit-data_generation_10_age.csv',
-                     'german-credit-data_generation_9_age.csv',
-                     'german-credit-data_generation_12_age.csv']],
+                     'german-credit-data_generation_12_sex.csv']
+                    ],
                    [['credit-scoring.csv', 'credit-scoring_generation.csv',
                      'credit-scoring_generation_5.csv', 'credit-scoring_generation_6_Sex.csv',
                      'credit-scoring_generation_10_Sex.csv', 'credit-scoring_generation_9_Sex.csv',
@@ -73,27 +67,24 @@ if __name__ == '__main__':
                      'dutch-census_generation_10_sex.csv', 'dutch-census_generation_9_sex.csv',
                      'dutch-census_generation_12_sex.csv']],
                    [['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv',
-                     'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv'],
-                    ['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv',
-                     'PAKDD_generation_6_AGE.csv', 'PAKDD_generation_10_AGE.csv', 'PAKDD_generation_9_AGE.csv', 'PAKDD_generation_12_AGE.csv']]
+                     'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv']
+                    ]
                  ]
 
-    protected_attribute_lists = [['gender', 'race', 'age'],
-                                 ['age'],
+    protected_attribute_lists = [['gender', 'race'],
                                  ['SEX', 'AGE'],
-                                 ['sex', 'age'],
+                                 ['sex'],
                                  ['Sex', 'Age'],
                                  ['sex'],
-                                 ['SEX', 'AGE']]
+                                 ['SEX']]
 
     class_labels = ['class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label']
-    p_Group_lists = [[0, 0, 0],
-                     [0],
-                     [0, 0],
-                     [0, 0],
+    p_Group_lists = [[0, 0],
                      [0, 0],
                      [0],
-                     [0, 0]]
+                     [0, 0],
+                     [0],
+                     [0]]
     file = open(ROOT / '..' / 'result' / 'SP.csv', 'w')
     result = []
 
@@ -138,7 +129,7 @@ if __name__ == '__main__':
                     min_position = gen
             arr_tmp[att][min_position] = 1
 
-    datasets = ['Adult\\_gender', 'Adult\\_race', 'Adult\\_age', 'Bank marketing\\_age', 'Credit card clients\\_SEX', 'Credit card client\\_AGE', 'German credit data\\_sex', 'German credit data\\_age', 'Credit scoring\\_Sex', 'Credit scoring\\_Age', 'Dutch census\\_sex', 'PAKDD\\_SEX', 'PAKDD\\_AGE']
+    datasets = ['Adult\\_gender', 'Adult\\_race', 'Credit card clients\\_SEX', 'Credit card client\\_AGE', 'German credit data\\_sex', 'Credit scoring\\_Sex', 'Credit scoring\\_Age', 'Dutch census\\_sex', 'PAKDD\\_SEX']
     file.write("\\begin{table}[H]\n")
     file.write("\\begin{center}\n")
     file.write("\\caption{Statistical Parity Dataset}\n")

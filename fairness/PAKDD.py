@@ -140,12 +140,27 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             df_test['pred_proba'] = y_pred_probs_fold[:, 1:2]
             df_test['true_label'] = y_test_fold
 
-            filename = ROOT / '..' / 'result' / 'PAKDD' / 'ABROCA' / f'{protected_attribute}.{m}.{f}.{num_fold}.png'
+            if f.__contains__('generation_12'):
+                filename_abroca = 'DGGANEOd'
+            elif f.__contains__('generation_9'):
+                filename_abroca = 'TabFairGanEOd'
+            elif f.__contains__('generation_10'):
+                filename_abroca = 'FixedTabFairGanNoSM'
+            elif f.__contains__('generation_6'):
+                filename_abroca = 'TabFairGan'
+            elif f.__contains__('generation_5'):
+                filename_abroca = 'CTGAN'
+            elif f.__contains__('generation'):
+                filename_abroca = 'DGGAN'
+            else:
+                filename_abroca = 'Origin'
+
+            filename = ROOT / '..' / 'result' / 'PAKDD' / 'ABROCA' / f'PAKDD_{filename_abroca}_{protected_attribute}_{m}_{num_fold}.png'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
                                     majority_protected_attr_val=1, n_grid=10000,
-                                    plot_slices=False, majority_group_name=majority_group_name,
+                                    plot_slices=True, majority_group_name=majority_group_name,
                                     minority_group_name=minority_group_name,
                                     file_name=filename).__round__(4)
 
@@ -179,14 +194,13 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
 
 if __name__ == '__main__':
 
-    file_lists = [['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv', 'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv'],
-                  ['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv', 'PAKDD_generation_6_AGE.csv', 'PAKDD_generation_10_AGE.csv', 'PAKDD_generation_9_AGE.csv', 'PAKDD_generation_12_AGE.csv']]
+    file_lists = [['PAKDD.csv', 'PAKDD_generation.csv', 'PAKDD_generation_5.csv', 'PAKDD_generation_6_SEX.csv', 'PAKDD_generation_10_SEX.csv', 'PAKDD_generation_9_SEX.csv', 'PAKDD_generation_12_SEX.csv']]
 
-    protected_attribute_list = ['SEX', 'AGE']
-    majority_group_name_list = ['Male', 'From 25 to 65']
-    minority_group_name_list = ['Female', 'Other']
+    protected_attribute_list = ['SEX']
+    majority_group_name_list = ['Male']
+    minority_group_name_list = ['Female']
     class_label = 'class-label'
-    p_Group_list = [0, 0]
+    p_Group_list = [0]
 
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'PAKDD' / f'{protected_attribute}.csv', 'w')
