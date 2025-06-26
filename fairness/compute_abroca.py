@@ -1,6 +1,3 @@
-import math
-
-from abroca import slice_plot, interpolate_roc_fun, compute_roc
 from utils import *
 import pandas as pd
 import numpy as np
@@ -24,8 +21,8 @@ def compute_abroca(
     ub=1,
     limit=1000,
     file_name="slice_image.png",
-    majority_group_name='Male',
-    minority_group_name='Female'
+    majority_group_name = 'Male',
+    minority_group_name = 'Female'
 ):
     # Compute the value of the abroca statistic.
     """
@@ -43,7 +40,7 @@ def compute_abroca(
 
     Returns Abroca value
     """
-    if df[pred_col].between(0, 1).any():
+    if df[pred_col].between(0, 1, inclusive='both').any():
         pass
     else:
         print("predictions must be in range [0,1]")
@@ -52,12 +49,12 @@ def compute_abroca(
         pass
     else:
         print("The label column should be binary")
-        return math.nan
+        exit(1)
     if len(df[protected_attr_col].value_counts()) == 2:
         pass
     else:
         print("The protected attribute column should be binary")
-        return math.nan
+        exit(1)
     # initialize data structures
     # slice_score = 0
     prot_attr_values = df[protected_attr_col].value_counts().index.values
@@ -100,6 +97,7 @@ def compute_abroca(
             majority_group_name=majority_group_name,
             minority_group_name=minority_group_name,
             fout=file_name,
+            value=round(slice, 4),
         )
 
     return slice
