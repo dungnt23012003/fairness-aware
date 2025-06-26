@@ -78,7 +78,7 @@ if __name__ == '__main__':
                                  ['sex'],
                                  ['SEX']]
 
-    class_labels = ['class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label']
+    class_labels = ['class-label', 'class-label', 'class-label', 'class-label', 'class-label', 'class-label']
     p_Group_lists = [[0, 0],
                      [0, 0],
                      [0],
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     file.write("\\begin{tabular}{c c c c c c c c c c c c}\n")
 
     file.write("\\hline\n")
-    file.write("\\textbf{Dataset} &\\textbf{Origin} &\\textbf{DGGAN} &\\textbf{CTGAN} &\\textbf{TabFairGan} &\\textbf{FixedTabFairGanNoSM} &\\textbf{TabFairGanEOd} &\\textbf{DGGanEOd} \\\\\n")
+    file.write("\\textbf{Dataset} &\\textbf{Origin} &\\textbf{DGGAN} &\\textbf{CTGAN} &\\textbf{TabFairGan} &\\textbf{TFGNoSM} &\\textbf{TFGEOd} &\\textbf{DGGanEOd} \\\\\n")
     file.write("\\hline\n")
     for att in range(np.shape(arr)[0]):
         file.write(f'{datasets[att]} ')

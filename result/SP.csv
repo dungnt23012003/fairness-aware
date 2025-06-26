@@ -3,21 +3,17 @@
 \caption{Statistical Parity Dataset}
 \begin{tabular}{c c c c c c c c c c c c}
 \hline
-\textbf{Dataset} &\textbf{Origin} &\textbf{DGGAN} &\textbf{CTGAN} &\textbf{TabFairGan} &\textbf{FixedTabFairGanNoSM} &\textbf{TabFairGanEOd} &\textbf{DGGanEOd} \\
+\textbf{Dataset} &\textbf{Origin} &\textbf{DGGAN} &\textbf{CTGAN} &\textbf{TabFairGan} &\textbf{TFGNoSM} &\textbf{TFGEOd} &\textbf{DGGanEOd} \\
 \hline
 Adult\_gender &0.1989 &-0.0508 &0.1474 &\textbf{\textcolor{red}{0.0273}} &0.1371 &0.1989 &0.1549 \\
 Adult\_race &0.104 &0.0123 &0.0668 &-0.7533 &-0.6534 &\textbf{\textcolor{red}{0.0043}} &0.0661 \\
-Adult\_age &0.2522 &0.0412 &0.1605 &\textbf{\textcolor{red}{0.0096}} &0.1131 &0.1622 &0.2343 \\
-Bank marketing\_age &-0.2128 &-0.1819 &-0.1719 &\textbf{\textcolor{red}{0.0098}} &-0.5693 &0.1415 &-0.1544 \\
 Credit card clients\_SEX &0.0339 &\textbf{\textcolor{red}{0.001}} &-0.0347 &0.0344 &0.0164 &0.0407 &0.0397 \\
 Credit card client\_AGE &-0.0557 &\textbf{\textcolor{red}{-0.0023}} &0.0494 &-0.0966 &-0.0081 &-0.1679 &-0.1566 \\
 German credit data\_sex &0.0748 &0.1275 &0.0235 &-0.0577 &\textbf{\textcolor{red}{0.0118}} &0.0172 &0.025 \\
-German credit data\_age &0.1143 &0.043 &-0.017 &0.0281 &0.0187 &0.0125 &\textbf{\textcolor{red}{0.0021}} \\
 Credit scoring\_Sex &0.0304 &-0.0032 &0.0854 &0.0597 &-0.0506 &\textbf{\textcolor{red}{0.0017}} &-0.0035 \\
 Credit scoring\_Age &0.0752 &0.055 &0.0641 &0.1019 &\textbf{\textcolor{red}{0.0338}} &0.085 &0.0606 \\
 Dutch census\_sex &0.2985 &\textbf{\textcolor{red}{0.0305}} &0.2407 &0.2708 &0.2919 &0.2873 &0.3473 \\
 PAKDD\_SEX &0.0215 &0.0429 &0.0778 &-0.0218 &0.035 &0.031 &\textbf{\textcolor{red}{-0.0124}} \\
-PAKDD\_AGE &-0.0188 &\textbf{\textcolor{red}{-0.0018}} &-0.0418 &-0.1261 &-0.0592 &-0.0602 &0.016 \\
 \hline
 \end{tabular}
 \end{center}
