@@ -1,3 +1,5 @@
+import math
+
 from utils import *
 import pandas as pd
 import numpy as np
@@ -44,17 +46,17 @@ def compute_abroca(
         pass
     else:
         print("predictions must be in range [0,1]")
-        exit(1)
+        return math.nan
     if len(df[label_col].value_counts()) == 2:
         pass
     else:
         print("The label column should be binary")
-        exit(1)
+        return math.nan
     if len(df[protected_attr_col].value_counts()) == 2:
         pass
     else:
         print("The protected attribute column should be binary")
-        exit(1)
+        return math.nan
     # initialize data structures
     # slice_score = 0
     prot_attr_values = df[protected_attr_col].value_counts().index.values

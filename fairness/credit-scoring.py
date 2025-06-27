@@ -71,6 +71,7 @@ def load_credit_scoring(file, protected_attribute, class_label):
 
 def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f):
     result = []
+    std = []
     model_list = ['MLP', 'KNN', 'DT', 'LR']
     # model_list = ['MLP', 'KNN', 'DT', 'SVM', 'LR']
     for m in model_list:
@@ -155,7 +156,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             else:
                 filename_abroca = 'Origin'
 
-            filename = ROOT / '..' / 'result' / 'credit-scoring' / 'ABROCA' / f'credit-scoring_{filename_abroca}_{protected_attribute}_{m}_{num_fold}.png'
+            filename = ROOT / '..' / 'result' / 'credit-scoring' / 'ABROCA' / f'credit-scoring_{filename_abroca}_{protected_attribute}_{m}_{num_fold}.pdf'
             # Compute Abroca
             Abroca = compute_abroca(df_test, pred_col='pred_proba', label_col='true_label',
                                     protected_attr_col=protected_attribute,
@@ -169,7 +170,9 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
             result_tmp.append(result_fold)
         arr = np.array(result_tmp)
         result_each_model = []
+        std_each_model = []
         for j in range(np.shape(arr)[1]):
+            arr_compute_std = []
             sum_ = 0
             num_nan = 0
             num = 0
@@ -180,6 +183,7 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                 elif math.isinf(arr[i][j]):
                     num_inf = num_inf + 1
                 else:
+                    arr_compute_std.append(arr[i][j])
                     sum_ = sum_ + arr[i][j]
                     num = num + 1
             if num != 0:
@@ -188,8 +192,14 @@ def run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protecte
                 result_each_model.append(math.inf)
             else:
                 result_each_model.append(math.nan)
+
+            if arr_compute_std.__len__() != 0:
+                std_each_model.append(np.std(arr_compute_std).__round__(4))
+            else:
+                std_each_model.append(math.nan)
+        std.append(std_each_model)
         result.append(result_each_model)
-    return result
+    return result, std
 
 
 if __name__ == '__main__':
@@ -206,14 +216,17 @@ if __name__ == '__main__':
     for protected_attribute, majority_group_name, minority_group_name, p_Group, file_list in zip(protected_attribute_list, majority_group_name_list, minority_group_name_list, p_Group_list, file_lists):
         file = open(ROOT / '..' / 'result' / 'credit-scoring' / f'{protected_attribute}.csv', 'w')
         result = []
+        std = []
         print(protected_attribute)
-        print(file_list)
         for f in file_list:
             X_train, X_test, y_train, y_test, sa_index = load_credit_scoring(f, protected_attribute, class_label)
-            test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group, protected_attribute, majority_group_name, minority_group_name, f)
-            result.append(test)
+            result_test, std_test = run_experiment(X_train, X_test, y_train, y_test, sa_index, p_Group,
+                                                   protected_attribute, majority_group_name, minority_group_name, f)
+            result.append(result_test)
+            std.append(std_test)
 
         arr = np.array(result)
+        std_arr = np.array(std)
         arr_tmp = np.zeros(np.shape(arr))
         for model in range(np.shape(arr)[1]):
             for score in range(np.shape(arr)[2]):
@@ -241,9 +254,9 @@ if __name__ == '__main__':
                         arr_tmp[min_position][model][score] = 1
 
         model_gen_list = ['Origins', 'DGGAN', 'CTGAN', 'TabFairGan', 'FixedTabFairGanNoSM', 'TabFairGanEOd', 'DGGanEOd']
-        file.write("\\begin{table}[H]\n")
-        file.write("\\begin{center}\n")
-        file.write("\\caption{Credit scoring dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
+        file.write("\\begin{table}[h!]\n")
+        file.write(
+            "\\caption{Credit scoring dataset: performance of predictive models. Protected attribute: " + protected_attribute + "}\n")
         file.write("\\begin{tabular}{c c c c c c c c c c}\n")
         file.write("\\hline\n")
         file.write("\\textbf{Method}&\\multicolumn{9}{c}{\\textbf{Predictive model}} \\\\\n")
@@ -258,13 +271,20 @@ if __name__ == '__main__':
                 file.write(model_gen_list[gen] + " ")
                 for score in range(1, np.shape(arr)[2]):
                     if arr_tmp[gen][model][score] == 0:
-                        file.write("&" + str(arr[gen][model][score]) + " ")
+                        if not (math.isnan(arr[gen][model][score]) or math.isinf(arr[gen][model][score])):
+                            file.write(
+                                "&$" + str(arr[gen][model][score]) + "\\pm" + str(std_arr[gen][model][score]) + '$')
+                        else:
+                            file.write("&" + str(arr[gen][model][score]))
                     else:
-                        file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
+                        if not (math.isnan(arr[gen][model][score]) or math.isinf(arr[gen][model][score])):
+                            file.write("&\\textbf{\\textcolor{red}{$" + str(arr[gen][model][score]) + "\\pm" + str(
+                                std_arr[gen][model][score]) + "$}} ")
+                        else:
+                            file.write("&\\textbf{\\textcolor{red}{" + str(arr[gen][model][score]) + "}} ")
                 file.write("\\\\\n")
         file.write("\\hline\n")
         file.write("\\end{tabular}\n")
-        file.write("\\end{center}\n")
         file.write("\\end{table}\n")
 
         file.close()
