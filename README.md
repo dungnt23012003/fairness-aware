@@ -1,26 +1,23 @@
-# DGGAN
-DGGAN (Demographic Generative Adversarial Network) is used to generate synthetic demographic data to improve the performance of fraud detection model.
+# Fairness-aware-synthetic-financial-data-using-GAN
 
 ## Steps to run Code
 - Clone the repository or download from the release on the right side
 ```
-git clone https://github.com/MountStonne/DGGAN.git
+https://github.com/dungnt23012003/fairness-aware.git
 ```
 
 - Go to the cloned folder.
 ```
-cd DGGAN
+cd fairness-aware
 ```
 
 - Create a virtual envirnoment (Recommended, If you dont want to disturb python packages)
 ```
 ### For MacOS/Linux Users
-python3 -m venv DGGANenv
-source DGGANenv/bin/activate
+source venv/bin/activate
 
 ### For Window Users
-python3 -m venv DGGANenv
-cd DGGANenv
+cd venv
 cd Scripts
 activate
 cd ..
@@ -60,21 +57,3 @@ python3 run.py --source 'olympics.csv' \
 
 - Grid search is recommended if your performance is not satisfying. Parameters that can be turned: batch-size, epochs, learning rate, leakyRely negative slope of generator, leakyRely negative slope of discriminator
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Fairness-aware-synthetic-financial-data-using-GAN
